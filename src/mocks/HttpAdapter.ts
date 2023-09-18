@@ -14,4 +14,6 @@ export class HttpAdapter implements IHttpGateway {
       owner: { cpf: "0000", name: "fulano" },
     };
   }
+
+  putUser(input: Customer): void {}
 }
