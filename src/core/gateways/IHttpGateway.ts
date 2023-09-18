@@ -2,8 +2,8 @@ import { Account } from "../domain/Account";
 import { Customer } from "../domain/Customer";
 
 export interface IHttpGateway {
-  postUser(input: Customer): Account;
-  getUser(accountNumber: number): Account;
-  putUser(input: Customer): void;
-  deleteUser(accountNumber: number): void;
+  postAccount(input: Customer): Account;
+  getAccount(accountNumber: number): Account;
+  putAccount(input: Customer): void;
+  deleteAccount(accountNumber: number): void;
 }

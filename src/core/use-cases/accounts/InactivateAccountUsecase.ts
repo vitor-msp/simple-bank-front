@@ -1,11 +1,11 @@
-import { IHttpGateway } from "../gateways/IHttpGateway";
+import { IHttpGateway } from "../../gateways/IHttpGateway";
 
-export class InactivateUserUsecase {
+export class InactivateAccountUsecase {
   constructor(private readonly http: IHttpGateway) {}
 
   async execute(accountNumber: number): Promise<boolean> {
     try {
-      await this.http.deleteUser(accountNumber);
+      await this.http.deleteAccount(accountNumber);
       return true;
     } catch (error) {
       return false;

@@ -1,4 +1,4 @@
-import { inactivateUserUsecase } from "../factory";
+import { inactivateAccountUsecase } from "../factory";
 
 export const LoginPage = () => {
   return (
@@ -7,11 +7,11 @@ export const LoginPage = () => {
       <button
         type="button"
         onClick={async () => {
-          const inactivated = await inactivateUserUsecase.execute(123);
+          const inactivated = await inactivateAccountUsecase.execute(123);
           alert(JSON.stringify(inactivated));
         }}
       >
-        inactivate user
+        inactivate account
       </button>
     </div>
   );

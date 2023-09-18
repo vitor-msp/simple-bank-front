@@ -1,12 +1,12 @@
-import { Customer } from "../domain/Customer";
-import { IHttpGateway } from "../gateways/IHttpGateway";
+import { Customer } from "../../domain/Customer";
+import { IHttpGateway } from "../../gateways/IHttpGateway";
 
-export class UpdateUserUsecase {
+export class UpdateAccountUsecase {
   constructor(private readonly http: IHttpGateway) {}
 
   async execute(input: Customer): Promise<boolean> {
     try {
-      await this.http.putUser(input);
+      await this.http.putAccount(input);
       return true;
     } catch (error) {
       return false;

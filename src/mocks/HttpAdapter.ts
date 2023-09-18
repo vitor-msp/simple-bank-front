@@ -3,11 +3,11 @@ import { Customer } from "../core/domain/Customer";
 import { IHttpGateway } from "../core/gateways/IHttpGateway";
 
 export class HttpAdapter implements IHttpGateway {
-  postUser(input: Customer): Account {
+  postAccount(input: Customer): Account {
     return { accountNumber: new Date().getTime() };
   }
 
-  getUser(accountNumber: number): Account {
+  getAccount(accountNumber: number): Account {
     return {
       accountNumber: new Date().getTime(),
       createdAt: new Date(),
@@ -15,7 +15,7 @@ export class HttpAdapter implements IHttpGateway {
     };
   }
 
-  putUser(input: Customer): void {}
+  putAccount(input: Customer): void {}
 
-  deleteUser(accountNumber: number): void {}
+  deleteAccount(accountNumber: number): void {}
 }
