@@ -16,4 +16,6 @@ export class HttpAdapter implements IHttpGateway {
   }
 
   putUser(input: Customer): void {}
+
+  deleteUser(accountNumber: number): void {}
 }

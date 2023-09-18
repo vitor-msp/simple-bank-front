@@ -1,4 +1,4 @@
-import { updateUserUsecase } from "../factory";
+import { inactivateUserUsecase } from "../factory";
 
 export const LoginPage = () => {
   return (
@@ -7,13 +7,11 @@ export const LoginPage = () => {
       <button
         type="button"
         onClick={async () => {
-          const udpated = await updateUserUsecase.execute({
-            name: "fulano de tal",
-          });
-          alert(JSON.stringify(udpated));
+          const inactivated = await inactivateUserUsecase.execute(123);
+          alert(JSON.stringify(inactivated));
         }}
       >
-        update user
+        inactivate user
       </button>
     </div>
   );

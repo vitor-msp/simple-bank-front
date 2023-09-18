@@ -5,4 +5,5 @@ export interface IHttpGateway {
   postUser(input: Customer): Account;
   getUser(accountNumber: number): Account;
   putUser(input: Customer): void;
+  deleteUser(accountNumber: number): void;
 }
