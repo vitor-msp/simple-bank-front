@@ -1,4 +1,4 @@
-import { createUserUsecase } from "../factory";
+import { getUserUsecase } from "../factory";
 
 export const LoginPage = () => {
   return (
@@ -7,14 +7,11 @@ export const LoginPage = () => {
       <button
         type="button"
         onClick={async () => {
-          const account = await createUserUsecase.execute({
-            cpf: "0000",
-            name: "fulano",
-          });
+          const account = await getUserUsecase.execute(123);
           alert(JSON.stringify(account));
         }}
       >
-        create user
+        get user
       </button>
     </div>
   );

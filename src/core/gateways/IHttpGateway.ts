@@ -3,4 +3,5 @@ import { Customer } from "../domain/Customer";
 
 export interface IHttpGateway {
   postUser(input: Customer): Account;
+  getUser(accountNumber: number): Account;
 }
