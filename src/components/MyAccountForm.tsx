@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Customer } from "../core/domain/Customer";
 import { AccountContext } from "../context/AccountProvider";
 import { Account } from "../core/domain/Account";
+import { inactivateAccountUsecase } from "../factory";
 
 let currentAccount: Account = {
   accountNumber: 0,
@@ -45,7 +46,18 @@ export const MyAccountForm = () => {
       setCanEdit(false);
       return;
     }
-    alert("Error to save user data!");
+    alert("Error to update account!");
+  };
+
+  const inactivateAccount = async () => {
+    const success = await inactivateAccountUsecase.execute(
+      currentAccount.accountNumber!
+    );
+    if (success) {
+      window.location.replace("/");
+      return;
+    }
+    alert("Error to inactivate account!");
   };
 
   return (
@@ -81,6 +93,11 @@ export const MyAccountForm = () => {
           </>
         )}
       </form>
+      <>
+        <button type="button" onClick={inactivateAccount}>
+          inactivate account
+        </button>
+      </>
     </div>
   );
 };
