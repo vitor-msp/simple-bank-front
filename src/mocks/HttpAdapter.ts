@@ -16,6 +16,7 @@ export class HttpAdapter implements IHttpGateway {
   }
 
   getAccount(accountNumber: number): Account {
+    alert(JSON.stringify("back accountNumber " + accountNumber));
     return {
       accountNumber: new Date().getTime(),
       createdAt: new Date(),
