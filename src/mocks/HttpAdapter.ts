@@ -11,6 +11,7 @@ import {
 
 export class HttpAdapter implements IHttpGateway {
   postAccount(input: Customer): Account {
+    alert(JSON.stringify(input));
     return { accountNumber: new Date().getTime() };
   }
 
