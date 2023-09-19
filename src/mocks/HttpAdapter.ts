@@ -2,7 +2,7 @@ import { Account } from "../core/domain/Account";
 import { Credit } from "../core/domain/Credit";
 import { Customer } from "../core/domain/Customer";
 import { Debit } from "../core/domain/Debit";
-import { IHttpGateway } from "../core/gateways/IHttpGateway";
+import { IHttpGateway, PostTransferInput } from "../core/gateways/IHttpGateway";
 
 export class HttpAdapter implements IHttpGateway {
   postAccount(input: Customer): Account {
@@ -24,4 +24,6 @@ export class HttpAdapter implements IHttpGateway {
   postCredit(accountNumber: number, input: Credit): void {}
 
   postDebit(accountNumber: number, input: Debit): void {}
+
+  postTransfer(accountNumber: number, input: PostTransferInput): void {}
 }
