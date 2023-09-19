@@ -8,6 +8,10 @@ export type PostTransferInput = {
   recipientAccountNumber: number;
 };
 
+export type GetBalanceOutput = {
+  balance: number;
+};
+
 export interface IHttpGateway {
   postAccount(input: Customer): Account;
   getAccount(accountNumber: number): Account;
@@ -16,4 +20,5 @@ export interface IHttpGateway {
   postCredit(accountNumber: number, input: Credit): void;
   postDebit(accountNumber: number, input: Debit): void;
   postTransfer(accountNumber: number, input: PostTransferInput): void;
+  getBalance(accountNumber: number): GetBalanceOutput;
 }

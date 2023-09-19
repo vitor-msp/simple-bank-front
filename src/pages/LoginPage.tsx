@@ -1,4 +1,4 @@
-import { transferUsecase } from "../factory";
+import { getBalanceUsecase } from "../factory";
 
 export const LoginPage = () => {
   return (
@@ -7,14 +7,11 @@ export const LoginPage = () => {
       <button
         type="button"
         onClick={async () => {
-          const created = await transferUsecase.execute(123, {
-            value: 15,
-            recipientAccountNumber: 321,
-          });
-          alert(JSON.stringify(created));
+          const balance = await getBalanceUsecase.execute(123);
+          alert(JSON.stringify(balance));
         }}
       >
-        transfer
+        balance
       </button>
     </div>
   );
