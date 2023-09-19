@@ -4,6 +4,7 @@ import { Customer } from "../core/domain/Customer";
 import { Debit } from "../core/domain/Debit";
 import {
   GetBalanceOutput,
+  GetTransactionsOutput,
   IHttpGateway,
   PostTransferInput,
 } from "../core/gateways/IHttpGateway";
@@ -33,5 +34,9 @@ export class HttpAdapter implements IHttpGateway {
 
   getBalance(accountNumber: number): GetBalanceOutput {
     return { balance: 15 };
+  }
+
+  getTransactions(accountNumber: number): GetTransactionsOutput {
+    return { transactions: [] };
   }
 }

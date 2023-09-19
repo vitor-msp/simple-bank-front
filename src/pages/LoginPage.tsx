@@ -1,4 +1,4 @@
-import { getBalanceUsecase } from "../factory";
+import { getTransactionsUsecase } from "../factory";
 
 export const LoginPage = () => {
   return (
@@ -7,11 +7,11 @@ export const LoginPage = () => {
       <button
         type="button"
         onClick={async () => {
-          const balance = await getBalanceUsecase.execute(123);
-          alert(JSON.stringify(balance));
+          const transactions = await getTransactionsUsecase.execute(123);
+          alert(JSON.stringify(transactions));
         }}
       >
-        balance
+        get transactions
       </button>
     </div>
   );

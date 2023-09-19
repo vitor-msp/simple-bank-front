@@ -5,6 +5,7 @@ import { UpdateAccountUsecase } from "./core/use-cases/accounts/UpdateAccountUse
 import { CreditUsecase } from "./core/use-cases/transactions/CreditUsecase";
 import { DebitUsecase } from "./core/use-cases/transactions/DebitUsecase";
 import { GetBalanceUsecase } from "./core/use-cases/transactions/GetBalanceUsecase";
+import { GetTransactionsUsecase } from "./core/use-cases/transactions/GetTransactionsUsecase";
 import { TransferUsecase } from "./core/use-cases/transactions/TransferUsecase";
 import { HttpAdapter } from "./mocks/HttpAdapter";
 
@@ -21,3 +22,4 @@ export const creditUsecase = new CreditUsecase(httpAdapter);
 export const debitUsecase = new DebitUsecase(httpAdapter);
 export const transferUsecase = new TransferUsecase(httpAdapter);
 export const getBalanceUsecase = new GetBalanceUsecase(httpAdapter);
+export const getTransactionsUsecase = new GetTransactionsUsecase(httpAdapter);
