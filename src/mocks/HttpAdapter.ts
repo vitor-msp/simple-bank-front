@@ -1,6 +1,7 @@
 import { Account } from "../core/domain/Account";
 import { Credit } from "../core/domain/Credit";
 import { Customer } from "../core/domain/Customer";
+import { Debit } from "../core/domain/Debit";
 import { IHttpGateway } from "../core/gateways/IHttpGateway";
 
 export class HttpAdapter implements IHttpGateway {
@@ -21,4 +22,6 @@ export class HttpAdapter implements IHttpGateway {
   deleteAccount(accountNumber: number): void {}
 
   postCredit(accountNumber: number, input: Credit): void {}
+
+  postDebit(accountNumber: number, input: Debit): void {}
 }
