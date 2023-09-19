@@ -1,3 +1,5 @@
+import { MyAccountForm } from "../components/MyAccountForm";
+
 export const MyAccountPage = () => {
-  return <div>MyAccountPage</div>;
+  return <MyAccountForm />;
 };

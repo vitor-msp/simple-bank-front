@@ -40,7 +40,7 @@ type AccountIntern = {
 export interface IHttpGateway {
   postAccount(input: Customer): Account;
   getAccount(accountNumber: number): Account;
-  putAccount(input: Customer): void;
+  putAccount(accountNumber: number, input: Customer): void;
   deleteAccount(accountNumber: number): void;
   postCredit(accountNumber: number, input: Credit): void;
   postDebit(accountNumber: number, input: Debit): void;
