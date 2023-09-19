@@ -25,8 +25,8 @@ export const DebitForm = () => {
   };
 
   const onChangeField = (event: any) => {
-    setDebit((c) => {
-      return { ...c, value: event.target.value };
+    setDebit((d) => {
+      return { ...d, value: event.target.value };
     });
   };
 
