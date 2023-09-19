@@ -1,4 +1,4 @@
-import { inactivateAccountUsecase } from "../factory";
+import { creditUsecase } from "../factory";
 
 export const LoginPage = () => {
   return (
@@ -7,11 +7,11 @@ export const LoginPage = () => {
       <button
         type="button"
         onClick={async () => {
-          const inactivated = await inactivateAccountUsecase.execute(123);
-          alert(JSON.stringify(inactivated));
+          const created = await creditUsecase.execute(123, { value: 15 });
+          alert(JSON.stringify(created));
         }}
       >
-        inactivate account
+        credit
       </button>
     </div>
   );
