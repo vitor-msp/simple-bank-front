@@ -16,7 +16,7 @@ export const LoginForm = () => {
       navigate(`/home`);
       return;
     }
-    alert("Error to loing. Please, try again!");
+    alert("Error to login. Please, try again!");
   };
 
   const onChangeField = (event: any) => {

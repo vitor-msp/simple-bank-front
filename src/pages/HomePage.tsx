@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
 
 export const HomePage = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const credit = () => {
-    navigator("/credit");
+    navigate("/credit");
   };
 
   const debit = () => {
-    navigator("/debit");
+    navigate("/debit");
   };
 
   const transfer = () => {
-    navigator("/transfer");
+    navigate("/transfer");
   };
 
   return (
