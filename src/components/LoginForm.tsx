@@ -13,7 +13,7 @@ export const LoginForm = () => {
     event.stopPropagation();
     const success = await accountContext.login(+accountNumber);
     if (success) {
-      navigate(`/my-account`);
+      navigate(`/home`);
       return;
     }
     alert("Error to loing. Please, try again!");

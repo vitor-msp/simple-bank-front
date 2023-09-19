@@ -5,6 +5,9 @@ import { HomePage } from "./pages/HomePage";
 import { MyAccountPage } from "./pages/MyAccountPage";
 import { Layout } from "./pages/Layout";
 import { AccountProvider } from "./context/AccountProvider";
+import { CreditPage } from "./pages/CreditPage";
+import { DebitPage } from "./pages/DebitPage";
+import { TransferPage } from "./pages/TransferPage";
 
 function App() {
   return (
@@ -22,6 +25,12 @@ function App() {
             <Route
               path="/my-account"
               element={<Layout child={<MyAccountPage />} />}
+            />
+            <Route path="/credit" element={<Layout child={<CreditPage />} />} />
+            <Route path="/debit" element={<Layout child={<DebitPage />} />} />
+            <Route
+              path="/transfer"
+              element={<Layout child={<TransferPage />} />}
             />
           </Routes>
         </BrowserRouter>
