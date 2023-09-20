@@ -77,7 +77,7 @@ export const TransferForm = () => {
             onChange={onChangeField}
             value={transfer.value}
             min={0}
-            step={0.1}
+            step={0.01}
           />
         </div>
         <div>

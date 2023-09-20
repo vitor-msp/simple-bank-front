@@ -51,7 +51,7 @@ export const DebitForm = () => {
             onChange={onChangeField}
             value={debit.value}
             min={0}
-            step={0.1}
+            step={0.01}
           />
         </div>
         <button type="submit">apply</button>
