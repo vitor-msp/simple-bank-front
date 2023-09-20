@@ -30,9 +30,18 @@ export const CreditForm = () => {
     });
   };
 
+  const backToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <div>
       <h2>credit</h2>
+      <div>
+        <button type="button" onClick={backToHome}>
+          back
+        </button>
+      </div>
       <form onSubmit={applyCredit}>
         <div>
           <label htmlFor="value">value</label>

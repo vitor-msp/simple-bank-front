@@ -30,9 +30,18 @@ export const DebitForm = () => {
     });
   };
 
+  const backToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <div>
       <h2>debit</h2>
+      <div>
+        <button type="button" onClick={backToHome}>
+          back
+        </button>
+      </div>
       <form onSubmit={applyDebit}>
         <div>
           <label htmlFor="value">value</label>

@@ -36,9 +36,18 @@ export const TransferForm = () => {
     });
   };
 
+  const backToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <div>
       <h2>transfer</h2>
+      <div>
+        <button type="button" onClick={backToHome}>
+          back
+        </button>
+      </div>
       <form onSubmit={applyTransfer}>
         <div>
           <label htmlFor="value">value</label>
