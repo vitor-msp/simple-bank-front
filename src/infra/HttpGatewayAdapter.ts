@@ -64,9 +64,23 @@ export class HttpGatewayAdapter implements IHttpGateway {
       });
   }
 
-  async postCredit(accountNumber: number, input: Credit): Promise<void> {}
+  async postCredit(accountNumber: number, input: Credit): Promise<void> {
+    await this.api
+      .post(`/transactions/credit/${accountNumber}`, input)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to post credit");
+      });
+  }
 
-  async postDebit(accountNumber: number, input: Debit): Promise<void> {}
+  async postDebit(accountNumber: number, input: Debit): Promise<void> {
+    await this.api
+      .post(`/transactions/debit/${accountNumber}`, input)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to post debit");
+      });
+  }
 
   async postTransfer(
     accountNumber: number,
@@ -77,7 +91,13 @@ export class HttpGatewayAdapter implements IHttpGateway {
   }
 
   async getBalance(accountNumber: number): Promise<GetBalanceOutput> {
-    return { balance: 15 };
+    const response = await this.api
+      .get<GetBalanceOutput>(`/transactions/balance/${accountNumber}`)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get balance");
+      });
+    return response;
   }
 
   async getTransactions(accountNumber: number): Promise<GetTransactionsOutput> {
