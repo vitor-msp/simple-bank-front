@@ -3,6 +3,7 @@ import { Credit } from "../core/domain/Credit";
 import { Customer } from "../core/domain/Customer";
 import { Debit } from "../core/domain/Debit";
 import {
+  AccountOutput,
   GetBalanceOutput,
   GetTransactionsOutput,
   IHttpGateway,
@@ -22,6 +23,14 @@ export class HttpAdapter implements IHttpGateway {
       createdAt: new Date(),
       owner: { cpf: "0000", name: "fulano" },
     };
+  }
+
+  getAccounts(): AccountOutput[] {
+    return [
+      { accountNumber: 111, name: "fulano de tal" },
+      { accountNumber: 222, name: "ciclano de tal" },
+      { accountNumber: 333, name: "beltrano da silva" },
+    ];
   }
 
   putAccount(accountNumber: number, input: Customer): void {}

@@ -12,6 +12,15 @@ export type GetBalanceOutput = {
   balance: number;
 };
 
+export type GetAccountsOutput = {
+  accounts: AccountOutput[];
+};
+
+export type AccountOutput = {
+  accountNumber: number;
+  name: string;
+};
+
 export type GetTransactionsOutput = {
   transactions: TransactionOutput[];
 };
@@ -20,20 +29,16 @@ export type TransactionOutput = {
   type: TransactionType;
   value: number;
   createdAt: Date;
-  sender?: TransactionAccountOutput;
-  recipient?: TransactionAccountOutput;
+  sender?: AccountOutput;
+  recipient?: AccountOutput;
 };
 
 type TransactionType = "credit" | "debit" | "transfer";
 
-export type TransactionAccountOutput = {
-  accountNumber: number;
-  name: string;
-};
-
 export interface IHttpGateway {
   postAccount(input: Customer): Account;
   getAccount(accountNumber: number): Account;
+  getAccounts(): AccountOutput[];
   putAccount(accountNumber: number, input: Customer): void;
   deleteAccount(accountNumber: number): void;
   postCredit(accountNumber: number, input: Credit): void;

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { TransactionsContext } from "../context/TransactionsProvider";
 import { AccountContext } from "../context/AccountProvider";
 import {
-  TransactionAccountOutput,
+  AccountOutput,
   TransactionOutput,
 } from "../core/gateways/IHttpGateway";
 
@@ -20,7 +20,7 @@ export const Transactions = () => {
     setTransactions(response);
   };
 
-  const getSender = (sender: TransactionAccountOutput) => {
+  const getSender = (sender: AccountOutput) => {
     const { accountNumber, name } = sender;
     return (
       <div>
@@ -39,7 +39,7 @@ export const Transactions = () => {
     );
   };
 
-  const getRecipient = (recipient: TransactionAccountOutput) => {
+  const getRecipient = (recipient: AccountOutput) => {
     const { accountNumber, name } = recipient;
     return (
       <div>
