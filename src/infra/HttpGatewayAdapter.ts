@@ -19,8 +19,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
     const account = await this.api
       .post<PostAccountOutput>(`/accounts`, input)
       .then((res) => res.data)
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         throw new Error("error to post account");
       });
     return account;
@@ -33,7 +32,6 @@ export class HttpGatewayAdapter implements IHttpGateway {
       .catch(() => {
         throw new Error("error to get account");
       });
-    console.log(account);
     return account;
   }
 
@@ -49,13 +47,19 @@ export class HttpGatewayAdapter implements IHttpGateway {
     await this.api
       .put(`/accounts/${accountNumber}`, input)
       .then((res) => res.data)
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         throw new Error("error to put account");
       });
   }
 
-  async deleteAccount(accountNumber: number): Promise<void> {}
+  async deleteAccount(accountNumber: number): Promise<void> {
+    await this.api
+      .delete(`/accounts/${accountNumber}`)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to delete account");
+      });
+  }
 
   async postCredit(accountNumber: number, input: Credit): Promise<void> {}
 
