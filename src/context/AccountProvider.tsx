@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useEffect, useState } from "react";
+import { PropsWithChildren, createContext, useState } from "react";
 import { Account } from "../core/domain/Account";
 import { getAccountUsecase, updateAccountUsecase } from "../factory";
 import { Customer } from "../core/domain/Customer";
@@ -26,11 +26,6 @@ export const AccountContext = createContext<AccountContextType>(
 export const AccountProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [account, setAccount] = useState<Account | null>(null);
-
-  useEffect(() => {
-    alert("account " + JSON.stringify(account));
-    alert("isLoggedIn " + isLoggedIn);
-  }, [account, isLoggedIn]);
 
   const login = async (accountNumber: number) => {
     const account = await getAccountUsecase.execute(accountNumber);

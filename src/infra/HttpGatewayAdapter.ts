@@ -27,12 +27,14 @@ export class HttpGatewayAdapter implements IHttpGateway {
   }
 
   async getAccount(accountNumber: number): Promise<Account> {
-    alert(JSON.stringify("back accountNumber " + accountNumber));
-    return {
-      accountNumber: new Date().getTime(),
-      createdAt: new Date(),
-      owner: { cpf: "0000", name: "fulano" },
-    };
+    const account = await this.api
+      .get<Account>(`/accounts/${accountNumber}`)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get account");
+      });
+    console.log(account);
+    return account;
   }
 
   async getAccounts(): Promise<AccountOutput[]> {
