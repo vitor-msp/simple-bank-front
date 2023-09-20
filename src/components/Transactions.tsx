@@ -69,7 +69,7 @@ export const Transactions = () => {
           {transactions.map((t) => {
             const { createdAt, type, value, recipient, sender } = t;
             return (
-              <li>
+              <li key={Math.random()}>
                 <div>
                   <strong>{type}</strong>
                 </div>

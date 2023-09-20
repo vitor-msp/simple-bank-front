@@ -88,9 +88,13 @@ export const TransferForm = () => {
             onChange={onChangeField}
             required={true}
           >
-            <option value={-1}>{"  -  "}</option>;
+            <option value={-1}>{"  -  "}</option>
             {accounts.map(({ accountNumber, name }) => {
-              return <option value={accountNumber}>{name}</option>;
+              return (
+                <option key={accountNumber} value={accountNumber}>
+                  {name}
+                </option>
+              );
             })}
           </select>
         </div>
