@@ -86,8 +86,12 @@ export class HttpGatewayAdapter implements IHttpGateway {
     accountNumber: number,
     input: PostTransferInput
   ): Promise<void> {
-    console.log(accountNumber);
-    console.log(JSON.stringify(input));
+    await this.api
+      .post(`/transactions/transfer/${accountNumber}`, input)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to transfer debit");
+      });
   }
 
   async getBalance(accountNumber: number): Promise<GetBalanceOutput> {
