@@ -5,6 +5,7 @@ import { Customer } from "../core/domain/Customer";
 import { Debit } from "../core/domain/Debit";
 import {
   AccountOutput,
+  GetAccountsOutput,
   GetBalanceOutput,
   GetTransactionsOutput,
   IHttpGateway,
@@ -36,11 +37,13 @@ export class HttpGatewayAdapter implements IHttpGateway {
   }
 
   async getAccounts(): Promise<AccountOutput[]> {
-    return [
-      { accountNumber: 111, name: "fulano de tal" },
-      { accountNumber: 222, name: "ciclano de tal" },
-      { accountNumber: 333, name: "beltrano da silva" },
-    ];
+    const response = await this.api
+      .get<GetAccountsOutput>(`/accounts`)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get accounts");
+      });
+    return response.accounts;
   }
 
   async putAccount(accountNumber: number, input: Customer): Promise<void> {
