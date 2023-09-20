@@ -1,23 +1,22 @@
 import { useContext, useState } from "react";
-import { TransactionsContext } from "../context/TransactionsProvider";
 import { AccountContext } from "../context/AccountProvider";
 import {
   AccountOutput,
   TransactionOutput,
 } from "../core/gateways/IHttpGateway";
+import { getTransactionsUsecase } from "../factory";
 
 export const Transactions = () => {
   const [transactions, setTransactions] = useState<TransactionOutput[]>([]);
   const accountContext = useContext(AccountContext);
-  const transactionsContext = useContext(TransactionsContext);
 
   const getTransactions = async () => {
     const account = await accountContext.getAccount();
     if (!account) return;
-    const response = await transactionsContext.getTransactions(
+    const response = await getTransactionsUsecase.execute(
       account.accountNumber!
     );
-    setTransactions(response);
+    if (response) setTransactions(response.transactions);
   };
 
   const getSender = (sender: AccountOutput) => {
