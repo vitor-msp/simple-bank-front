@@ -45,7 +45,15 @@ export class HttpGatewayAdapter implements IHttpGateway {
     ];
   }
 
-  async putAccount(accountNumber: number, input: Customer): Promise<void> {}
+  async putAccount(accountNumber: number, input: Customer): Promise<void> {
+    await this.api
+      .put(`/accounts/${accountNumber}`, input)
+      .then((res) => res.data)
+      .catch((error) => {
+        console.log(error);
+        throw new Error("error to put account");
+      });
+  }
 
   async deleteAccount(accountNumber: number): Promise<void> {}
 
