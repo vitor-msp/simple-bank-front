@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Balance } from "../components/Balance";
+import { Transactions } from "../components/Transactions";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export const HomePage = () => {
         </button>
       </div>
       <Balance />
+      <Transactions />
     </div>
   );
 };

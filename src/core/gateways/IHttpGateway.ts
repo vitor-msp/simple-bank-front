@@ -13,26 +13,20 @@ export type GetBalanceOutput = {
 };
 
 export type GetTransactionsOutput = {
-  transactions: CreditDebitIntern | TransferIntern[];
+  transactions: TransactionOutput[];
+};
+
+export type TransactionOutput = {
+  type: TransactionType;
+  value: number;
+  createdAt: Date;
+  sender?: TransactionAccountOutput;
+  recipient?: TransactionAccountOutput;
 };
 
 type TransactionType = "credit" | "debit" | "transfer";
 
-type CreditDebitIntern = {
-  type: TransactionType;
-  value: number;
-  createdAt: Date;
-};
-
-type TransferIntern = {
-  type: TransactionType;
-  value: number;
-  createdAt: Date;
-  sender: AccountIntern;
-  recipient: AccountIntern;
-};
-
-type AccountIntern = {
+export type TransactionAccountOutput = {
   accountNumber: number;
   name: string;
 };

@@ -39,6 +39,33 @@ export class HttpAdapter implements IHttpGateway {
   }
 
   getTransactions(accountNumber: number): GetTransactionsOutput {
-    return { transactions: [] };
+    const a: GetTransactionsOutput = {
+      transactions: [
+        {
+          type: "credit",
+          value: 150,
+          createdAt: new Date(),
+        },
+        {
+          type: "debit",
+          value: -16.65,
+          createdAt: new Date(),
+        },
+        {
+          type: "transfer",
+          value: 16.6,
+          createdAt: new Date(),
+          sender: {
+            accountNumber: 1500,
+            name: "sender name",
+          },
+          recipient: {
+            accountNumber: 1169,
+            name: "recipient name",
+          },
+        },
+      ],
+    };
+    return a;
   }
 }
