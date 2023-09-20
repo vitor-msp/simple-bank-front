@@ -7,12 +7,16 @@ export type AccountContextType = {
   login: (accountNumber: number) => Promise<boolean>;
   getAccount: () => Account | null;
   updateAccount: (accountNumber: number, input: Customer) => Promise<boolean>;
+  isLoggedIn: boolean;
+  logout: () => void;
 };
 
 const defaultAccountContext: AccountContextType = {
   login: async (accountNumber: number) => false,
   getAccount: () => null,
   updateAccount: async (accountNumber: number, input: Customer) => false,
+  isLoggedIn: false,
+  logout: () => {},
 };
 
 export const AccountContext = createContext<AccountContextType>(
@@ -52,8 +56,14 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
     return success;
   };
 
+  const logout = () => {
+    window.location.replace("/");
+  };
+
   return (
-    <AccountContext.Provider value={{ login, getAccount, updateAccount }}>
+    <AccountContext.Provider
+      value={{ login, getAccount, updateAccount, isLoggedIn, logout }}
+    >
       {children}
     </AccountContext.Provider>
   );
