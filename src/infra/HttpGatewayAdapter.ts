@@ -105,33 +105,23 @@ export class HttpGatewayAdapter implements IHttpGateway {
   }
 
   async getTransactions(accountNumber: number): Promise<GetTransactionsOutput> {
-    const a: GetTransactionsOutput = {
-      transactions: [
-        {
-          type: "credit",
-          value: 150,
-          createdAt: new Date(),
-        },
-        {
-          type: "debit",
-          value: -16.65,
-          createdAt: new Date(),
-        },
-        {
-          type: "transfer",
-          value: 16.6,
-          createdAt: new Date(),
-          sender: {
-            accountNumber: 1500,
-            name: "sender name",
-          },
-          recipient: {
-            accountNumber: 1169,
-            name: "recipient name",
-          },
-        },
-      ],
+    const response = await this.api
+      .get<GetTransactionsOutput>(`/transactions/${accountNumber}`)
+      .then((res) => res.data)
+      .catch(() => {
+        throw new Error("error to get transactions");
+      });
+    return {
+      transactions: response.transactions.map((t) => {
+        const { type, value, sender, recipient } = t;
+        return {
+          createdAt: new Date(t.createdAt),
+          type,
+          value,
+          sender,
+          recipient,
+        };
+      }),
     };
-    return a;
   }
 }
