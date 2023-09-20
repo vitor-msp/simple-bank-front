@@ -1,3 +1,4 @@
+import { AxiosInstance } from "axios";
 import { Account } from "../core/domain/Account";
 import { Credit } from "../core/domain/Credit";
 import { Customer } from "../core/domain/Customer";
@@ -7,16 +8,25 @@ import {
   GetBalanceOutput,
   GetTransactionsOutput,
   IHttpGateway,
+  PostAccountOutput,
   PostTransferInput,
 } from "../core/gateways/IHttpGateway";
 
-export class HttpAdapter implements IHttpGateway {
-  postAccount(input: Customer): Account {
-    alert(JSON.stringify(input));
-    return { accountNumber: new Date().getTime() };
+export class HttpGatewayAdapter implements IHttpGateway {
+  constructor(private readonly api: AxiosInstance) {}
+
+  async postAccount(input: Customer): Promise<PostAccountOutput> {
+    const account = await this.api
+      .post<PostAccountOutput>(`/accounts`, input)
+      .then((res) => res.data)
+      .catch((error) => {
+        console.log(error);
+        throw new Error("error to post account");
+      });
+    return account;
   }
 
-  getAccount(accountNumber: number): Account {
+  async getAccount(accountNumber: number): Promise<Account> {
     alert(JSON.stringify("back accountNumber " + accountNumber));
     return {
       accountNumber: new Date().getTime(),
@@ -25,7 +35,7 @@ export class HttpAdapter implements IHttpGateway {
     };
   }
 
-  getAccounts(): AccountOutput[] {
+  async getAccounts(): Promise<AccountOutput[]> {
     return [
       { accountNumber: 111, name: "fulano de tal" },
       { accountNumber: 222, name: "ciclano de tal" },
@@ -33,24 +43,27 @@ export class HttpAdapter implements IHttpGateway {
     ];
   }
 
-  putAccount(accountNumber: number, input: Customer): void {}
+  async putAccount(accountNumber: number, input: Customer): Promise<void> {}
 
-  deleteAccount(accountNumber: number): void {}
+  async deleteAccount(accountNumber: number): Promise<void> {}
 
-  postCredit(accountNumber: number, input: Credit): void {}
+  async postCredit(accountNumber: number, input: Credit): Promise<void> {}
 
-  postDebit(accountNumber: number, input: Debit): void {}
+  async postDebit(accountNumber: number, input: Debit): Promise<void> {}
 
-  postTransfer(accountNumber: number, input: PostTransferInput): void {
+  async postTransfer(
+    accountNumber: number,
+    input: PostTransferInput
+  ): Promise<void> {
     console.log(accountNumber);
     console.log(JSON.stringify(input));
   }
 
-  getBalance(accountNumber: number): GetBalanceOutput {
+  async getBalance(accountNumber: number): Promise<GetBalanceOutput> {
     return { balance: 15 };
   }
 
-  getTransactions(accountNumber: number): GetTransactionsOutput {
+  async getTransactions(accountNumber: number): Promise<GetTransactionsOutput> {
     const a: GetTransactionsOutput = {
       transactions: [
         {

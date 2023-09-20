@@ -1,3 +1,4 @@
+import axios from "axios";
 import { CreateAccountUsecase } from "./core/use-cases/accounts/CreateAccountUsecase";
 import { GetAccountUsecase } from "./core/use-cases/accounts/GetAccountUsecase";
 import { GetAccountsUsecase } from "./core/use-cases/accounts/GetAccountsUsecase";
@@ -8,9 +9,12 @@ import { DebitUsecase } from "./core/use-cases/transactions/DebitUsecase";
 import { GetBalanceUsecase } from "./core/use-cases/transactions/GetBalanceUsecase";
 import { GetTransactionsUsecase } from "./core/use-cases/transactions/GetTransactionsUsecase";
 import { TransferUsecase } from "./core/use-cases/transactions/TransferUsecase";
-import { HttpAdapter } from "./mocks/HttpAdapter";
+import { HttpGatewayAdapter } from "./infra/HttpGatewayAdapter";
 
-const httpAdapter = new HttpAdapter();
+const API_URL = process.env.REACT_APP_API_URL;
+if (!API_URL || API_URL.localeCompare("") === 0)
+  throw Error("missing API_URL environment variable");
+const httpAdapter = new HttpGatewayAdapter(axios.create({ baseURL: API_URL }));
 
 export const createAccountUsecase = new CreateAccountUsecase(httpAdapter);
 export const getAccountUsecase = new GetAccountUsecase(httpAdapter);
