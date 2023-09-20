@@ -41,7 +41,10 @@ export class HttpAdapter implements IHttpGateway {
 
   postDebit(accountNumber: number, input: Debit): void {}
 
-  postTransfer(accountNumber: number, input: PostTransferInput): void {}
+  postTransfer(accountNumber: number, input: PostTransferInput): void {
+    console.log(accountNumber);
+    console.log(JSON.stringify(input));
+  }
 
   getBalance(accountNumber: number): GetBalanceOutput {
     return { balance: 15 };

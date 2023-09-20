@@ -9,16 +9,8 @@ import { CreditPage } from "./pages/CreditPage";
 import { DebitPage } from "./pages/DebitPage";
 import { TransferPage } from "./pages/TransferPage";
 import { TransactionsProvider } from "./context/TransactionsProvider";
-import { useEffect } from "react";
-import { getAccountsUsecase } from "./factory";
 
 function App() {
-  useEffect(() => {
-    setTimeout(async () => {
-      alert("accounts " + JSON.stringify(await getAccountsUsecase.execute()));
-    }, 2000);
-  }, []);
-
   return (
     <>
       <AccountProvider>

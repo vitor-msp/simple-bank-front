@@ -7,7 +7,6 @@ export class GetAccountsUsecase {
     try {
       return await this.http.getAccounts();
     } catch (error) {
-      console.log(error);
       return [];
     }
   }

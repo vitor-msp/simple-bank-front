@@ -1,8 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { transferUsecase } from "../factory";
+import { getAccountsUsecase, transferUsecase } from "../factory";
 import { AccountContext } from "../context/AccountProvider";
-import { PostTransferInput } from "../core/gateways/IHttpGateway";
+import {
+  AccountOutput,
+  PostTransferInput,
+} from "../core/gateways/IHttpGateway";
 
 const defaultTransfer: PostTransferInput = {
   value: 0,
@@ -11,12 +14,24 @@ const defaultTransfer: PostTransferInput = {
 
 export const TransferForm = () => {
   const [transfer, setTransfer] = useState<PostTransferInput>(defaultTransfer);
+  const [accounts, setAccounts] = useState<AccountOutput[]>([]);
   const navigate = useNavigate();
   const accountContext = useContext(AccountContext);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getAccountsUsecase.execute();
+      setAccounts(response);
+    })();
+  }, []);
 
   const applyTransfer = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    if (!IsFormValid()) {
+      alert("accountNumber and value must be greater than zero.");
+      return;
+    }
     const account = accountContext.getAccount();
     if (!account) return;
     const success = await transferUsecase.execute(
@@ -28,6 +43,10 @@ export const TransferForm = () => {
       return;
     }
     alert("Error to apply transfer. Please, try again!");
+  };
+
+  const IsFormValid = (): boolean => {
+    return transfer.recipientAccountNumber > 0 && transfer.value > 0;
   };
 
   const onChangeField = (event: any) => {
@@ -63,13 +82,17 @@ export const TransferForm = () => {
         </div>
         <div>
           <label htmlFor="recipientAccountNumber">recipientAccountNumber</label>
-          <input
-            type="text"
+          <select
             id="recipientAccountNumber"
             name="recipientAccountNumber"
             onChange={onChangeField}
-            value={transfer.recipientAccountNumber}
-          />
+            required={true}
+          >
+            <option value={-1}>{"  -  "}</option>;
+            {accounts.map(({ accountNumber, name }) => {
+              return <option value={accountNumber}>{name}</option>;
+            })}
+          </select>
         </div>
         <button type="submit">apply</button>
       </form>

@@ -62,7 +62,13 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <AccountContext.Provider
-      value={{ login, getAccount, updateAccount, isLoggedIn, logout }}
+      value={{
+        login,
+        getAccount,
+        updateAccount,
+        isLoggedIn,
+        logout,
+      }}
     >
       {children}
     </AccountContext.Provider>
