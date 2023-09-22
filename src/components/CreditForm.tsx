@@ -50,8 +50,9 @@ export const CreditForm = () => {
             id="value"
             onChange={onChangeField}
             value={credit.value}
-            min={0}
+            min={0.01}
             step={0.01}
+            required={true}
           />
         </div>
         <button type="submit">apply</button>

@@ -76,8 +76,9 @@ export const TransferForm = () => {
             name="value"
             onChange={onChangeField}
             value={transfer.value}
-            min={0}
+            min={0.01}
             step={0.01}
+            required={true}
           />
         </div>
         <div>
