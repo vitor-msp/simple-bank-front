@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer {
+    :root {
+        @apply text-gray-950 bg-gray-100 font-mono
+    }
+
+    .default-form {
+        @apply flex flex-col justify-center items-center p-2
+    }
+
+    .default-form h2 {
+        @apply text-center text-orange-600
+    }
+
+    .default-form form {
+        @apply flex flex-col items-center
+    }
+
+    .default-form fieldset {
+        @apply flex flex-col justify-evenly items-center rounded-md
+    }
+
+    .default-form input, .default-form select {
+        @apply col-span-4 rounded-md hover:bg-orange-100
+    }
+
+    .default-form label {
+        @apply col-span-2 text-right pr-3
+    }
+
+    .default-form fieldset>div {
+        @apply grid grid-cols-6 my-2 items-center
+    }
+
+    .default-form button {
+        @apply w-full rounded-md transition-all
+    }
+}

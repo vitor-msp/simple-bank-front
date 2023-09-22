@@ -9,7 +9,11 @@ export const Logout = () => {
   };
 
   return (
-    <button type="button" onClick={logout}>
+    <button
+      type="button"
+      onClick={logout}
+      className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
+    >
       logout
     </button>
   );

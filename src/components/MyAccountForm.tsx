@@ -61,43 +61,69 @@ export const MyAccountForm = () => {
   };
 
   return (
-    <div>
-      <h2>my account</h2>
+    <div className="default-form">
+      <h2 className="text-3xl mb-3">my account</h2>
       <form onSubmit={updateAccount}>
-        <div>
-          <label htmlFor="name">name</label>
-          <input
-            type="text"
-            id="name"
-            onChange={onChangeField}
-            value={customer.name}
-            disabled={!canEdit}
-          />
-        </div>
-        <div>
-          <label htmlFor="text">cpf</label>
-          <input type="cpf" id="cpf" value={customer.cpf} disabled={true} />
-        </div>
-        {canEdit ? (
+        <fieldset className="border border-orange-500 mb-1 p-3">
           <div>
-            <button type="button" onClick={cancelEdit}>
+            <label htmlFor="name">name</label>
+            <input
+              type="text"
+              id="name"
+              onChange={onChangeField}
+              value={customer.name}
+              disabled={!canEdit}
+              className="p-1"
+            />
+          </div>
+          <div>
+            <label htmlFor="text">cpf</label>
+            <input
+              type="cpf"
+              id="cpf"
+              value={customer.cpf}
+              disabled={true}
+              className="p-1"
+            />
+          </div>
+        </fieldset>
+        {canEdit ? (
+          <div className="flex justify-between items-center w-full gap-2">
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            >
               cancel
             </button>
-            <button type="submit">save</button>
+            <button
+              type="submit"
+              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            >
+              save
+            </button>
           </div>
         ) : (
-          <>
-            <button type="button" onClick={() => setCanEdit(true)}>
+          <div className="flex justify-between items-center w-full gap-2">
+            <button
+              type="button"
+              onClick={() => setCanEdit(true)}
+              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            >
               edit
             </button>
-          </>
+          </div>
         )}
       </form>
-      <>
-        <button type="button" onClick={inactivateAccount}>
+      <div className="flex justify-center items-center w-full gap-2 mt-4">
+        <button
+          type="button"
+          onClick={inactivateAccount}
+          className="px-4 w-auto rounded-md transition-all hover:bg-red-500 p-1 text-xl text-red-500 bg-red-200 hover:text-gray-100"
+        >
           inactivate account
         </button>
-      </>
+      </div>
     </div>
   );
 };

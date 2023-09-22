@@ -31,30 +31,41 @@ export const SignupForm = () => {
   };
 
   return (
-    <div>
-      <h2>SignUp</h2>
+    <div className="default-form">
+      <h2 className="text-3xl mb-3">sign up</h2>
       <form onSubmit={signUp}>
-        <div>
-          <label htmlFor="name">name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            onChange={onChangeField}
-            value={customer.name}
-          />
+        <fieldset className="border border-orange-500 mb-1 p-3">
+          <div>
+            <label htmlFor="name">name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onChange={onChangeField}
+              value={customer.name}
+              className="p-1"
+            />
+          </div>
+          <div>
+            <label htmlFor="text">cpf</label>
+            <input
+              type="cpf"
+              name="cpf"
+              id="cpf"
+              onChange={onChangeField}
+              value={customer.cpf}
+              className="p-1"
+            />
+          </div>
+        </fieldset>
+        <div className="flex justify-between items-center w-full gap-2">
+          <button
+            type="submit"
+            className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+          >
+            sign up
+          </button>
         </div>
-        <div>
-          <label htmlFor="text">cpf</label>
-          <input
-            type="cpf"
-            name="cpf"
-            id="cpf"
-            onChange={onChangeField}
-            value={customer.cpf}
-          />
-        </div>
-        <button type="submit">sign up</button>
       </form>
     </div>
   );

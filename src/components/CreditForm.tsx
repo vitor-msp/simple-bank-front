@@ -30,32 +30,33 @@ export const CreditForm = () => {
     });
   };
 
-  const backToHome = () => {
-    navigate("/home");
-  };
-
   return (
-    <div>
-      <h2>credit</h2>
-      <div>
-        <button type="button" onClick={backToHome}>
-          back
-        </button>
-      </div>
+    <div className="default-form">
+      <h2 className="text-3xl mb-3">credit</h2>
       <form onSubmit={applyCredit}>
-        <div>
-          <label htmlFor="value">value</label>
-          <input
-            type="number"
-            id="value"
-            onChange={onChangeField}
-            value={credit.value}
-            min={0.01}
-            step={0.01}
-            required={true}
-          />
+        <fieldset className="border border-orange-500 mb-1 p-3">
+          <div>
+            <label htmlFor="value">value</label>
+            <input
+              type="number"
+              id="value"
+              onChange={onChangeField}
+              value={credit.value}
+              min={0.01}
+              step={0.01}
+              required={true}
+              className="p-1"
+            />
+          </div>
+        </fieldset>
+        <div className="flex justify-between items-center w-full gap-2">
+          <button
+            type="submit"
+            className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+          >
+            apply
+          </button>
         </div>
-        <button type="submit">apply</button>
       </form>
     </div>
   );

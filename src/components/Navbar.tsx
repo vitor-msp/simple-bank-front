@@ -9,15 +9,35 @@ export const Navbar = () => {
   return (
     <>
       {accountContext.isLoggedIn ? (
-        <nav>
-          <NavLink to={"/home"}>____home____</NavLink>
-          <NavLink to={"/my-account"}>____my account____</NavLink>
+        <nav className="flex justify-evenly items-center w-full text-gray-100 font-bold bg-orange-500">
+          <NavLink
+            to={"/home"}
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
+          >
+            home
+          </NavLink>
+          <NavLink
+            to={"/my-account"}
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
+          >
+            my account
+          </NavLink>
           <Logout />
         </nav>
       ) : (
-        <nav>
-          <NavLink to={"/login"}>____login____</NavLink>
-          <NavLink to={"/sign-up"}>____sign up____</NavLink>
+        <nav className="flex justify-evenly items-center w-full text-gray-100 font-bold bg-orange-500">
+          <NavLink
+            to={"/login"}
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
+          >
+            login
+          </NavLink>
+          <NavLink
+            to={"/sign-up"}
+            className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
+          >
+            sign up
+          </NavLink>
         </nav>
       )}
     </>
