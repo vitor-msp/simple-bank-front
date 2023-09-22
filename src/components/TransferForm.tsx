@@ -20,8 +20,13 @@ export const TransferForm = () => {
 
   useEffect(() => {
     (async () => {
+      const myAccount = accountContext.getAccount();
+      if (!myAccount) return;
       const response = await getAccountsUsecase.execute();
-      setAccounts(response);
+      const newAccounts = response.filter(
+        ({ accountNumber }) => accountNumber !== myAccount.accountNumber
+      );
+      setAccounts(newAccounts);
     })();
   }, []);
 
