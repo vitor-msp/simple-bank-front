@@ -61,7 +61,7 @@ export const Transactions = () => {
             onClick={getTransactions}
             className="w-auto rounded-md transition-all hover:bg-orange-500 py-2 px-4 text-xl text-orange-500 bg-orange-200 hover:text-gray-100"
           >
-            get transactions
+            show transactions
           </button>
         </div>
       )}

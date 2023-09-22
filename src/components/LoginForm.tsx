@@ -29,7 +29,7 @@ export const LoginForm = () => {
       <form onSubmit={login}>
         <fieldset className="border border-orange-500 mb-1 p-3">
           <div>
-            <label htmlFor="accountNumber">accountNumber</label>
+            <label htmlFor="accountNumber">account number</label>
             <input
               type="text"
               id="accountNumber"

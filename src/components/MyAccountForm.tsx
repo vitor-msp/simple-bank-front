@@ -119,7 +119,7 @@ export const MyAccountForm = () => {
         <button
           type="button"
           onClick={inactivateAccount}
-          className="px-4 w-auto rounded-md transition-all hover:bg-red-500 p-1 text-xl text-red-500 bg-red-200 hover:text-gray-100"
+          className="px-4 w-auto rounded-md transition-all hover:bg-red-500 p-1 text-xl text-red-500 hover:text-gray-100"
         >
           inactivate account
         </button>

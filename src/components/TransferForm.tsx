@@ -66,9 +66,7 @@ export const TransferForm = () => {
       <form onSubmit={applyTransfer}>
         <fieldset className="border border-orange-500 mb-1 p-3">
           <div>
-            <label htmlFor="recipientAccountNumber">
-              recipient account number
-            </label>
+            <label htmlFor="recipientAccountNumber">recipient account</label>
             <select
               id="recipientAccountNumber"
               name="recipientAccountNumber"
