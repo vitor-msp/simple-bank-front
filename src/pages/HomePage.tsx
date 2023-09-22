@@ -23,21 +23,21 @@ export const HomePage = () => {
         <button
           type="button"
           onClick={credit}
-          className="w-auto rounded-md transition-all bg-orange-500 py-2 px-4 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+          className="w-auto rounded-md transition-all bg-blue-800 py-2 px-4 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
         >
           credit
         </button>
         <button
           type="button"
           onClick={debit}
-          className="w-auto rounded-md transition-all bg-orange-500 py-2 px-4 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+          className="w-auto rounded-md transition-all bg-blue-800 py-2 px-4 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
         >
           debit
         </button>
         <button
           type="button"
           onClick={transfer}
-          className="w-auto rounded-md transition-all bg-orange-500 py-2 px-4 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+          className="w-auto rounded-md transition-all bg-blue-800 py-2 px-4 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
         >
           transfer
         </button>

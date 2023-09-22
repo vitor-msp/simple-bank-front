@@ -27,7 +27,7 @@ export const LoginForm = () => {
     <div className="default-form">
       <h2 className="text-3xl mb-3">login</h2>
       <form onSubmit={login}>
-        <fieldset className="border border-orange-500 mb-1 p-3">
+        <fieldset className="border border-blue-800 mb-1 p-3">
           <div>
             <label htmlFor="accountNumber">account number</label>
             <input
@@ -42,7 +42,7 @@ export const LoginForm = () => {
         <div className="flex justify-between items-center w-full gap-2">
           <button
             type="submit"
-            className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+            className="bg-blue-800 p-1 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
           >
             login
           </button>

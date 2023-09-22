@@ -12,7 +12,7 @@ export const Logout = () => {
     <button
       type="button"
       onClick={logout}
-      className="hover:bg-gray-100 hover:text-orange-500 w-max p-2 text-center"
+      className="hover:bg-gray-100 hover:text-blue-800 w-max p-2 text-center"
     >
       logout
     </button>

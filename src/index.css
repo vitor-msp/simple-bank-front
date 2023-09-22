@@ -12,7 +12,7 @@
     }
 
     .default-form h2 {
-        @apply text-center text-orange-600
+        @apply text-center text-blue-900
     }
 
     .default-form form {
@@ -24,7 +24,7 @@
     }
 
     .default-form input, .default-form select {
-        @apply col-span-4 rounded-md hover:bg-orange-100
+        @apply col-span-4 rounded-md hover:bg-blue-100
     }
 
     .default-form label {

@@ -18,7 +18,7 @@ export const Balance = () => {
   return (
     <div className="flex justify-center my-6">
       <span className="text-3xl">Balance:</span>
-      <span className="text-3xl mx-2 text-orange-500 font-bold">
+      <span className="text-3xl mx-2 text-blue-800 font-bold">
         {balance.toLocaleString("pt-br", {
           style: "currency",
           currency: "BRL",

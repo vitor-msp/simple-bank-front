@@ -36,7 +36,7 @@ export const Transactions = () => {
     return (
       <div className="flex justify-center evenly items-center w-full gap-4 mt-4 p-4">
         <div>
-          <span className="font-bold">{msg}</span>
+          <span className="font-bold text-blue-800">{msg}</span>
         </div>
         <div className="flex flex-col justify-center items-center">
           <div>
@@ -59,7 +59,7 @@ export const Transactions = () => {
           <button
             type="button"
             onClick={getTransactions}
-            className="w-auto rounded-md transition-all hover:bg-orange-500 py-2 px-4 text-xl text-orange-500 bg-orange-200 hover:text-gray-100"
+            className="w-auto rounded-md transition-all hover:bg-blue-800 py-2 px-4 text-xl hover:font-bold bg-blue-600 text-gray-100"
           >
             show transactions
           </button>
@@ -70,10 +70,7 @@ export const Transactions = () => {
           {transactions.map((t) => {
             const { createdAt, type, value, recipient, sender } = t;
             return (
-              <li
-                key={Math.random()}
-                className="rounded-md hover:bg-orange-200"
-              >
+              <li key={Math.random()} className="rounded-md hover:bg-blue-200">
                 <div className="flex justify-evenly items-center w-full gap-4 mt-4 p-4">
                   <span className="font-bold">{type}</span>
                   <span

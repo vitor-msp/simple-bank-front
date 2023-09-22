@@ -64,7 +64,7 @@ export const MyAccountForm = () => {
     <div className="default-form">
       <h2 className="text-3xl mb-3">my account</h2>
       <form onSubmit={updateAccount}>
-        <fieldset className="border border-orange-500 mb-1 p-3">
+        <fieldset className="border border-blue-800 mb-1 p-3">
           <div>
             <label htmlFor="name">name</label>
             <input
@@ -92,13 +92,13 @@ export const MyAccountForm = () => {
             <button
               type="button"
               onClick={cancelEdit}
-              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+              className="bg-blue-800 p-1 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
             >
               cancel
             </button>
             <button
               type="submit"
-              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+              className="bg-blue-800 p-1 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
             >
               save
             </button>
@@ -108,7 +108,7 @@ export const MyAccountForm = () => {
             <button
               type="button"
               onClick={() => setCanEdit(true)}
-              className="bg-orange-500 p-1 text-xl hover:text-orange-500 hover:bg-orange-200 text-gray-100"
+              className="bg-blue-800 p-1 text-xl hover:font-bold hover:bg-blue-600 text-gray-100"
             >
               edit
             </button>
