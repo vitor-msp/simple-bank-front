@@ -16,17 +16,22 @@ git clone https://github.com/vitor-msp/simple-bank-front.git
 cd simple-bank-front
 ```
 
-3. Install Node dependencies
+3. Create file with environment variables
+```
+cp .env.sample .env
+```
+
+4. Install Node dependencies
 ```
 npm install
 ```
 
-4. Run site
+5. Run site
 ```
 npm start
 ```
 
-5. Access [site URL](http://localhost:3000)
+6. Access [site URL](http://localhost:3000)
 
 ## Notes
 
