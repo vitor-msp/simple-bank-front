@@ -11,6 +11,7 @@ export class TransferUsecase {
       await this.http.postTransfer(accountNumber, input);
       return true;
     } catch (error) {
+      alert(error);
       return false;
     }
   }

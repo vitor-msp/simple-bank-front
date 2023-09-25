@@ -10,6 +10,7 @@ export class GetTransactionsUsecase {
     try {
       return await this.http.getTransactions(accountNumber);
     } catch (error) {
+      alert(error);
       return null;
     }
   }

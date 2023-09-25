@@ -9,6 +9,7 @@ export class DebitUsecase {
       await this.http.postDebit(accountNumber, input);
       return true;
     } catch (error) {
+      alert(error);
       return false;
     }
   }

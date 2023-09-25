@@ -9,6 +9,7 @@ export class CreditUsecase {
       await this.http.postCredit(accountNumber, input);
       return true;
     } catch (error) {
+      alert(error);
       return false;
     }
   }

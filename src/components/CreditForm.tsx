@@ -17,11 +17,7 @@ export const CreditForm = () => {
     const account = accountContext.getAccount();
     if (!account) return;
     const success = await creditUsecase.execute(account.accountNumber!, credit);
-    if (success) {
-      navigate(`/home`);
-      return;
-    }
-    alert("Error to apply credit. Please, try again!");
+    if (success) navigate(`/home`);
   };
 
   const onChangeField = (event: any) => {

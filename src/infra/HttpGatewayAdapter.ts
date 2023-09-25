@@ -20,8 +20,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     const account = await this.api
       .post<PostAccountOutput>(`/accounts`, input)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to post account");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
     return account;
   }
@@ -30,8 +32,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     const account = await this.api
       .get<Account>(`/accounts/${accountNumber}`)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to get account");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
     return account;
   }
@@ -40,8 +44,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     const response = await this.api
       .get<GetAccountsOutput>(`/accounts`)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to get accounts");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
     return response.accounts;
   }
@@ -50,8 +56,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     await this.api
       .put(`/accounts/${accountNumber}`, input)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to put account");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
   }
 
@@ -59,8 +67,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     await this.api
       .delete(`/accounts/${accountNumber}`)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to delete account");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
   }
 
@@ -68,8 +78,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     await this.api
       .post(`/transactions/credit/${accountNumber}`, input)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to post credit");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
   }
 
@@ -77,8 +89,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     await this.api
       .post(`/transactions/debit/${accountNumber}`, input)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to post debit");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
   }
 
@@ -89,8 +103,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     await this.api
       .post(`/transactions/transfer/${accountNumber}`, input)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to transfer debit");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
   }
 
@@ -98,8 +114,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     const response = await this.api
       .get<GetBalanceOutput>(`/transactions/balance/${accountNumber}`)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to get balance");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
     return response;
   }
@@ -108,8 +126,10 @@ export class HttpGatewayAdapter implements IHttpGateway {
     const response = await this.api
       .get<GetTransactionsOutput>(`/transactions/${accountNumber}`)
       .then((res) => res.data)
-      .catch(() => {
-        throw new Error("error to get transactions");
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
       });
     return {
       transactions: response.transactions.map((t) => {

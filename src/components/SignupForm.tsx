@@ -16,12 +16,9 @@ export const SignupForm = () => {
     event.preventDefault();
     event.stopPropagation();
     const account = await createAccountUsecase.execute(customer);
-    if (account) {
-      alert(JSON.stringify(account));
-      navigate(`/login`);
-      return;
-    }
-    alert("Error to sign up. Please, try again!");
+    if (!account) return;
+    alert(JSON.stringify(account));
+    navigate(`/login`);
   };
 
   const onChangeField = (event: any) => {

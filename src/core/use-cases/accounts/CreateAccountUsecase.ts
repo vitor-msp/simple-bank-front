@@ -9,6 +9,7 @@ export class CreateAccountUsecase {
     try {
       return await this.http.postAccount(input);
     } catch (error) {
+      alert(error);
       return null;
     }
   }

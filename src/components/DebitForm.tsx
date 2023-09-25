@@ -17,11 +17,7 @@ export const DebitForm = () => {
     const account = accountContext.getAccount();
     if (!account) return;
     const success = await debitUsecase.execute(account.accountNumber!, debit);
-    if (success) {
-      navigate(`/home`);
-      return;
-    }
-    alert("Error to apply debit. Please, try again!");
+    if (success) navigate(`/home`);
   };
 
   const onChangeField = (event: any) => {

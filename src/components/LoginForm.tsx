@@ -12,11 +12,7 @@ export const LoginForm = () => {
     event.preventDefault();
     event.stopPropagation();
     const success = await accountContext.login(+accountNumber);
-    if (success) {
-      navigate(`/home`);
-      return;
-    }
-    alert("Error to login. Please, try again!");
+    if (success) navigate(`/home`);
   };
 
   const onChangeField = (event: any) => {

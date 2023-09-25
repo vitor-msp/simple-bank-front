@@ -8,6 +8,7 @@ export class InactivateAccountUsecase {
       await this.http.deleteAccount(accountNumber);
       return true;
     } catch (error) {
+      alert(error);
       return false;
     }
   }

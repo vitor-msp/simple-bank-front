@@ -41,23 +41,16 @@ export const MyAccountForm = () => {
       currentAccount.accountNumber!,
       customer
     );
-    if (success) {
-      currentAccount.owner = customer;
-      setCanEdit(false);
-      return;
-    }
-    alert("Error to update account!");
+    if (!success) return;
+    currentAccount.owner = customer;
+    setCanEdit(false);
   };
 
   const inactivateAccount = async () => {
     const success = await inactivateAccountUsecase.execute(
       currentAccount.accountNumber!
     );
-    if (success) {
-      window.location.replace("/");
-      return;
-    }
-    alert("Error to inactivate account!");
+    if (success) window.location.replace("/");
   };
 
   return (

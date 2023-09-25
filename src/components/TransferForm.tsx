@@ -34,7 +34,7 @@ export const TransferForm = () => {
     event.preventDefault();
     event.stopPropagation();
     if (!IsFormValid()) {
-      alert("accountNumber and value must be greater than zero.");
+      alert("The recipient's account cannot be empty.");
       return;
     }
     const account = accountContext.getAccount();
@@ -43,11 +43,7 @@ export const TransferForm = () => {
       account.accountNumber!,
       transfer
     );
-    if (success) {
-      navigate(`/home`);
-      return;
-    }
-    alert("Error to apply transfer. Please, try again!");
+    if (success) navigate(`/home`);
   };
 
   const IsFormValid = (): boolean => {

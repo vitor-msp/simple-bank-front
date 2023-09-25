@@ -7,6 +7,7 @@ export class GetBalanceUsecase {
     try {
       return await this.http.getBalance(accountNumber);
     } catch (error) {
+      alert(error);
       return null;
     }
   }

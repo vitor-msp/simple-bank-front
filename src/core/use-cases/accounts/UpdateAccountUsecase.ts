@@ -9,6 +9,7 @@ export class UpdateAccountUsecase {
       await this.http.putAccount(accountNumber, input);
       return true;
     } catch (error) {
+      alert(error);
       return false;
     }
   }
