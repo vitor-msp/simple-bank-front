@@ -2,6 +2,8 @@
 
 #### Front End for consuming Simple Bank API
 
+![website demo](assets/demo.gif)
+
 The API be available [in this repository](https://github.com/vitor-msp/simple-bank-api)
 
 ## Execution
