@@ -11,27 +11,27 @@ let currentAccount: Account = {
 };
 
 export const MyAccountForm = () => {
-  const [customer, setCustomer] = useState<Customer>(currentAccount.owner!);
+  const [account, setAccount] = useState<Account>(currentAccount);
   const [canEdit, setCanEdit] = useState<boolean>(false);
   const accountContext = useContext(AccountContext);
 
   useEffect(() => {
-    const account = accountContext.getAccount();
-    if (account) {
-      currentAccount = account;
-      setCustomer(account.owner!);
-    }
+    const response = accountContext.getAccount();
+    if (!response) return;
+    currentAccount = response;
+    setAccount(response);
   }, []);
 
   const onChangeField = (event: any) => {
-    setCustomer((c) => {
-      return { ...c, name: event.target.value };
+    setAccount((a) => {
+      const { owner } = a;
+      return { ...a, owner: { ...owner, name: event.target.value } };
     });
   };
 
   const cancelEdit = () => {
     setCanEdit(false);
-    setCustomer(currentAccount.owner!);
+    setAccount(currentAccount);
   };
 
   const updateAccount = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,10 +39,10 @@ export const MyAccountForm = () => {
     event.stopPropagation();
     const success = await accountContext.updateAccount(
       currentAccount.accountNumber!,
-      customer
+      account.owner!
     );
     if (!success) return;
-    currentAccount.owner = customer;
+    currentAccount.owner = account.owner;
     setCanEdit(false);
   };
 
@@ -59,12 +59,22 @@ export const MyAccountForm = () => {
       <form onSubmit={updateAccount}>
         <fieldset className="border border-blue-800 mb-1 p-3">
           <div>
+            <label htmlFor="accountNumber">account number</label>
+            <input
+              type="text"
+              id="accountNumber"
+              value={account.accountNumber ?? ""}
+              disabled={true}
+              className="p-1"
+            />
+          </div>
+          <div>
             <label htmlFor="name">name</label>
             <input
               type="text"
               id="name"
               onChange={onChangeField}
-              value={customer.name}
+              value={account.owner?.name ?? ""}
               disabled={!canEdit}
               className="p-1"
             />
@@ -74,7 +84,7 @@ export const MyAccountForm = () => {
             <input
               type="cpf"
               id="cpf"
-              value={customer.cpf}
+              value={account.owner?.cpf ?? ""}
               disabled={true}
               className="p-1"
             />
