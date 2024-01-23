@@ -37,6 +37,32 @@ export type TransactionOutput = {
   recipient?: AccountOutput;
 };
 
+export type GetTransactionsOutputApi = {
+  statement: {
+    transactions: TransactionOutputApi[];
+  };
+};
+
+export type TransactionOutputApi = {
+  type: TransactionType;
+  creditDto?: {
+    value: number;
+    createdAt: Date;
+    account: AccountOutput;
+  };
+  debitDto?: {
+    value: number;
+    createdAt: Date;
+    account: AccountOutput;
+  };
+  transferDto?: {
+    value: number;
+    createdAt: Date;
+    sender: AccountOutput;
+    recipient: AccountOutput;
+  };
+};
+
 type TransactionType = "credit" | "debit" | "transfer";
 
 export interface IHttpGateway {

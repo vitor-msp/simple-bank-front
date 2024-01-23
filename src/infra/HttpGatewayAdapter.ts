@@ -8,9 +8,11 @@ import {
   GetAccountsOutput,
   GetBalanceOutput,
   GetTransactionsOutput,
+  GetTransactionsOutputApi,
   IHttpGateway,
   PostAccountOutput,
   PostTransferInput,
+  TransactionOutput,
 } from "../core/gateways/IHttpGateway";
 
 export class HttpGatewayAdapter implements IHttpGateway {
@@ -124,7 +126,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
 
   async getTransactions(accountNumber: number): Promise<GetTransactionsOutput> {
     const response = await this.api
-      .get<GetTransactionsOutput>(`/transactions/${accountNumber}`)
+      .get<GetTransactionsOutputApi>(`/transactions/${accountNumber}`)
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -132,16 +134,34 @@ export class HttpGatewayAdapter implements IHttpGateway {
         );
       });
     return {
-      transactions: response.transactions.map((t) => {
-        const { type, value, sender, recipient } = t;
-        return {
-          createdAt: new Date(t.createdAt),
-          type,
-          value,
-          sender,
-          recipient,
-        };
-      }),
+      transactions: response.statement.transactions.map(
+        (t): TransactionOutput => {
+          if (t.type === "credit" && t.creditDto)
+            return {
+              type: t.type,
+              createdAt: new Date(t.creditDto.createdAt),
+              value: t.creditDto.value,
+            };
+
+          if (t.type === "debit" && t.debitDto)
+            return {
+              type: t.type,
+              createdAt: new Date(t.debitDto.createdAt),
+              value: t.debitDto.value,
+            };
+
+          if (t.type === "transfer" && t.transferDto)
+            return {
+              type: t.type,
+              createdAt: new Date(t.transferDto.createdAt),
+              value: t.transferDto.value,
+              sender: t.transferDto.sender,
+              recipient: t.transferDto.recipient,
+            };
+
+          throw new Error();
+        }
+      ),
     };
   }
 }

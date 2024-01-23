@@ -46,7 +46,7 @@ export const SignupForm = () => {
           <div>
             <label htmlFor="text">cpf</label>
             <input
-              type="cpf"
+              type="text"
               name="cpf"
               id="cpf"
               onChange={onChangeField}

@@ -82,7 +82,7 @@ export const MyAccountForm = () => {
           <div>
             <label htmlFor="text">cpf</label>
             <input
-              type="cpf"
+              type="text"
               id="cpf"
               value={account.owner?.cpf ?? ""}
               disabled={true}
