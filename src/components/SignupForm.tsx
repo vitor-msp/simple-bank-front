@@ -6,6 +6,8 @@ import { createAccountUsecase } from "../factory";
 const defaultCustomer: Customer = {
   name: "",
   cpf: "",
+  password: "",
+  passwordConfirmation: "",
 };
 
 export const SignupForm = () => {
@@ -15,10 +17,17 @@ export const SignupForm = () => {
   const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
+    if (!passwordIsValid())
+      return alert("Password and confirmation must be equal.");
+
     const account = await createAccountUsecase.execute(customer);
     if (!account) return;
     alert(JSON.stringify(account));
     navigate(`/login`);
+  };
+
+  const passwordIsValid = (): boolean => {
+    return customer.password === customer.passwordConfirmation;
   };
 
   const onChangeField = (event: any) => {
@@ -43,6 +52,7 @@ export const SignupForm = () => {
               className="p-1"
             />
           </div>
+
           <div>
             <label htmlFor="text">cpf</label>
             <input
@@ -51,6 +61,30 @@ export const SignupForm = () => {
               id="cpf"
               onChange={onChangeField}
               value={customer.cpf}
+              className="p-1"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password">password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={onChangeField}
+              value={customer.password}
+              className="p-1"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="passwordConfirmation">confirmation</label>
+            <input
+              type="password"
+              name="passwordConfirmation"
+              id="passwordConfirmation"
+              onChange={onChangeField}
+              value={customer.passwordConfirmation}
               className="p-1"
             />
           </div>
