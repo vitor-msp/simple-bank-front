@@ -8,8 +8,10 @@ import {
 } from "../factory";
 import { Customer } from "../core/domain/Customer";
 import { LoginInput } from "../core/domain/Login";
+import { TokenUtil } from "../utils/TokenUtil";
 
 export type AccountContextType = {
+  init: () => Promise<boolean>;
   login: (loginInput: LoginInput) => Promise<boolean>;
   getAccount: () => Account | null;
   updateAccount: (accountNumber: number, input: Customer) => Promise<boolean>;
@@ -18,6 +20,7 @@ export type AccountContextType = {
 };
 
 const defaultAccountContext: AccountContextType = {
+  init: async () => false,
   login: async (loginInput: LoginInput) => false,
   getAccount: () => null,
   updateAccount: async (accountNumber: number, input: Customer) => false,
@@ -32,6 +35,25 @@ export const AccountContext = createContext<AccountContextType>(
 export const AccountProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [account, setAccount] = useState<Account | null>(null);
+
+  const init = async (): Promise<boolean> => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (!accessToken || !refreshToken) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      return false;
+    }
+
+    const accountNumber = TokenUtil.getAccountNumber(accessToken);
+    const account = await getAccountUsecase.execute(accountNumber);
+    if (!account) return false;
+
+    setIsLoggedIn(true);
+    setAccount(account);
+    return true;
+  };
 
   const login = async (loginInput: LoginInput) => {
     if (!loginInput.accountNumber) return false;
@@ -70,6 +92,7 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
   return (
     <AccountContext.Provider
       value={{
+        init,
         login,
         getAccount,
         updateAccount,
