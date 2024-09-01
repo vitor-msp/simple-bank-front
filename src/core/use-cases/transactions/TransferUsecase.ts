@@ -1,14 +1,14 @@
-import { IHttpGateway, PostTransferInput } from "../../gateways/IHttpGateway";
+import { PostTransferInput } from "../../gateways/IHttpGateway";
+import { BaseUsecase } from "../BaseUsecase";
 
-export class TransferUsecase {
-  constructor(private readonly http: IHttpGateway) {}
-
+export class TransferUsecase extends BaseUsecase {
   async execute(
     accountNumber: number,
     input: PostTransferInput
   ): Promise<boolean> {
     try {
-      await this.http.postTransfer(accountNumber, input);
+      const headers = this.getAuthorizationHeader();
+      await this.http.postTransfer(accountNumber, input, headers);
       return true;
     } catch (error) {
       alert(error);

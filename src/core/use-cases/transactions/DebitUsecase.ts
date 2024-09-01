@@ -1,12 +1,11 @@
 import { Debit } from "../../domain/Debit";
-import { IHttpGateway } from "../../gateways/IHttpGateway";
+import { BaseUsecase } from "../BaseUsecase";
 
-export class DebitUsecase {
-  constructor(private readonly http: IHttpGateway) {}
-
+export class DebitUsecase extends BaseUsecase {
   async execute(accountNumber: number, input: Debit): Promise<boolean> {
     try {
-      await this.http.postDebit(accountNumber, input);
+      const headers = this.getAuthorizationHeader();
+      await this.http.postDebit(accountNumber, input, headers);
       return true;
     } catch (error) {
       alert(error);

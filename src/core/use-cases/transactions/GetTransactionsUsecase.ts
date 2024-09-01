@@ -1,14 +1,11 @@
-import {
-  GetTransactionsOutput,
-  IHttpGateway,
-} from "../../gateways/IHttpGateway";
+import { GetTransactionsOutput } from "../../gateways/IHttpGateway";
+import { BaseUsecase } from "../BaseUsecase";
 
-export class GetTransactionsUsecase {
-  constructor(private readonly http: IHttpGateway) {}
-
+export class GetTransactionsUsecase extends BaseUsecase {
   async execute(accountNumber: number): Promise<GetTransactionsOutput | null> {
     try {
-      return await this.http.getTransactions(accountNumber);
+      const headers = this.getAuthorizationHeader();
+      return await this.http.getTransactions(accountNumber, headers);
     } catch (error) {
       alert(error);
       return null;

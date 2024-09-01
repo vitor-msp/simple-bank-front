@@ -1,12 +1,11 @@
 import { Account } from "../../domain/Account";
-import { IHttpGateway } from "../../gateways/IHttpGateway";
+import { BaseUsecase } from "../BaseUsecase";
 
-export class GetAccountUsecase {
-  constructor(private readonly http: IHttpGateway) {}
-
+export class GetAccountUsecase extends BaseUsecase {
   async execute(accountNumber: number): Promise<Account | null> {
     try {
-      return await this.http.getAccount(accountNumber);
+      const headers = this.getAuthorizationHeader();
+      return await this.http.getAccount(accountNumber, headers);
     } catch (error) {
       alert(error);
       return null;

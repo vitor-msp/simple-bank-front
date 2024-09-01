@@ -15,6 +15,7 @@ import {
   TransactionOutput,
 } from "../core/gateways/IHttpGateway";
 import { LoginInput, LoginOutput } from "../core/domain/Login";
+import { Headers } from "../core/domain/Headers";
 
 export class HttpGatewayAdapter implements IHttpGateway {
   constructor(private readonly api: AxiosInstance) {}
@@ -43,9 +44,9 @@ export class HttpGatewayAdapter implements IHttpGateway {
     return output;
   }
 
-  async getAccount(accountNumber: number): Promise<Account> {
+  async getAccount(accountNumber: number, headers: Headers): Promise<Account> {
     const account = await this.api
-      .get<Account>(`/accounts/${accountNumber}`)
+      .get<Account>(`/accounts/${accountNumber}`, { headers })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -67,9 +68,13 @@ export class HttpGatewayAdapter implements IHttpGateway {
     return response.accounts;
   }
 
-  async putAccount(accountNumber: number, input: Customer): Promise<void> {
+  async putAccount(
+    accountNumber: number,
+    input: Customer,
+    headers: Headers
+  ): Promise<void> {
     await this.api
-      .put(`/accounts/${accountNumber}`, input)
+      .put(`/accounts/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -78,9 +83,9 @@ export class HttpGatewayAdapter implements IHttpGateway {
       });
   }
 
-  async deleteAccount(accountNumber: number): Promise<void> {
+  async deleteAccount(accountNumber: number, headers: Headers): Promise<void> {
     await this.api
-      .delete(`/accounts/${accountNumber}`)
+      .delete(`/accounts/${accountNumber}`, { headers })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -89,9 +94,13 @@ export class HttpGatewayAdapter implements IHttpGateway {
       });
   }
 
-  async postCredit(accountNumber: number, input: Credit): Promise<void> {
+  async postCredit(
+    accountNumber: number,
+    input: Credit,
+    headers: Headers
+  ): Promise<void> {
     await this.api
-      .post(`/transactions/credit/${accountNumber}`, input)
+      .post(`/transactions/credit/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -100,9 +109,13 @@ export class HttpGatewayAdapter implements IHttpGateway {
       });
   }
 
-  async postDebit(accountNumber: number, input: Debit): Promise<void> {
+  async postDebit(
+    accountNumber: number,
+    input: Debit,
+    headers: Headers
+  ): Promise<void> {
     await this.api
-      .post(`/transactions/debit/${accountNumber}`, input)
+      .post(`/transactions/debit/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -113,10 +126,11 @@ export class HttpGatewayAdapter implements IHttpGateway {
 
   async postTransfer(
     accountNumber: number,
-    input: PostTransferInput
+    input: PostTransferInput,
+    headers: Headers
   ): Promise<void> {
     await this.api
-      .post(`/transactions/transfer/${accountNumber}`, input)
+      .post(`/transactions/transfer/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -125,9 +139,14 @@ export class HttpGatewayAdapter implements IHttpGateway {
       });
   }
 
-  async getBalance(accountNumber: number): Promise<GetBalanceOutput> {
+  async getBalance(
+    accountNumber: number,
+    headers: Headers
+  ): Promise<GetBalanceOutput> {
     const response = await this.api
-      .get<GetBalanceOutput>(`/transactions/balance/${accountNumber}`)
+      .get<GetBalanceOutput>(`/transactions/balance/${accountNumber}`, {
+        headers,
+      })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -137,9 +156,14 @@ export class HttpGatewayAdapter implements IHttpGateway {
     return response;
   }
 
-  async getTransactions(accountNumber: number): Promise<GetTransactionsOutput> {
+  async getTransactions(
+    accountNumber: number,
+    headers: Headers
+  ): Promise<GetTransactionsOutput> {
     const response = await this.api
-      .get<GetTransactionsOutputApi>(`/transactions/${accountNumber}`)
+      .get<GetTransactionsOutputApi>(`/transactions/${accountNumber}`, {
+        headers,
+      })
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -149,21 +173,21 @@ export class HttpGatewayAdapter implements IHttpGateway {
     return {
       transactions: response.statement.transactions.map(
         (t): TransactionOutput => {
-          if (t.type === "credit" && t.creditDto)
+          if (t.type === "Credit" && t.creditDto)
             return {
               type: t.type,
               createdAt: new Date(t.creditDto.createdAt),
               value: t.creditDto.value,
             };
 
-          if (t.type === "debit" && t.debitDto)
+          if (t.type === "Debit" && t.debitDto)
             return {
               type: t.type,
               createdAt: new Date(t.debitDto.createdAt),
               value: t.debitDto.value,
             };
 
-          if (t.type === "transfer" && t.transferDto)
+          if (t.type === "Transfer" && t.transferDto)
             return {
               type: t.type,
               createdAt: new Date(t.transferDto.createdAt),
@@ -172,7 +196,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
               recipient: t.transferDto.recipient,
             };
 
-          throw new Error();
+          throw new Error("Error to get transactions.");
         }
       ),
     };

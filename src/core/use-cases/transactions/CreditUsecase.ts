@@ -1,12 +1,11 @@
 import { Credit } from "../../domain/Credit";
-import { IHttpGateway } from "../../gateways/IHttpGateway";
+import { BaseUsecase } from "../BaseUsecase";
 
-export class CreditUsecase {
-  constructor(private readonly http: IHttpGateway) {}
-
+export class CreditUsecase extends BaseUsecase {
   async execute(accountNumber: number, input: Credit): Promise<boolean> {
     try {
-      await this.http.postCredit(accountNumber, input);
+      const headers = this.getAuthorizationHeader();
+      await this.http.postCredit(accountNumber, input, headers);
       return true;
     } catch (error) {
       alert(error);

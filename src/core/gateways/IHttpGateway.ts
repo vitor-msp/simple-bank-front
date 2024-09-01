@@ -2,6 +2,7 @@ import { Account } from "../domain/Account";
 import { Credit } from "../domain/Credit";
 import { Customer } from "../domain/Customer";
 import { Debit } from "../domain/Debit";
+import { Headers } from "../domain/Headers";
 import { LoginInput, LoginOutput } from "../domain/Login";
 
 export type PostTransferInput = {
@@ -64,18 +65,40 @@ export type TransactionOutputApi = {
   };
 };
 
-type TransactionType = "credit" | "debit" | "transfer";
+type TransactionType = "Credit" | "Debit" | "Transfer";
 
 export interface IHttpGateway {
   postAccount(input: Customer): Promise<PostAccountOutput>;
   login(input: LoginInput): Promise<LoginOutput>;
-  getAccount(accountNumber: number): Promise<Account>;
+  getAccount(accountNumber: number, headers: Headers): Promise<Account>;
   getAccounts(): Promise<AccountOutput[]>;
-  putAccount(accountNumber: number, input: Customer): Promise<void>;
-  deleteAccount(accountNumber: number): Promise<void>;
-  postCredit(accountNumber: number, input: Credit): Promise<void>;
-  postDebit(accountNumber: number, input: Debit): Promise<void>;
-  postTransfer(accountNumber: number, input: PostTransferInput): Promise<void>;
-  getBalance(accountNumber: number): Promise<GetBalanceOutput>;
-  getTransactions(accountNumber: number): Promise<GetTransactionsOutput>;
+  putAccount(
+    accountNumber: number,
+    input: Customer,
+    headers: Headers
+  ): Promise<void>;
+  deleteAccount(accountNumber: number, headers: Headers): Promise<void>;
+  postCredit(
+    accountNumber: number,
+    input: Credit,
+    headers: Headers
+  ): Promise<void>;
+  postDebit(
+    accountNumber: number,
+    input: Debit,
+    headers: Headers
+  ): Promise<void>;
+  postTransfer(
+    accountNumber: number,
+    input: PostTransferInput,
+    headers: Headers
+  ): Promise<void>;
+  getBalance(
+    accountNumber: number,
+    headers: Headers
+  ): Promise<GetBalanceOutput>;
+  getTransactions(
+    accountNumber: number,
+    headers: Headers
+  ): Promise<GetTransactionsOutput>;
 }
