@@ -14,6 +14,7 @@ import {
   PostTransferInput,
   TransactionOutput,
 } from "../core/gateways/IHttpGateway";
+import { LoginInput, LoginOutput } from "../core/domain/Login";
 
 export class HttpGatewayAdapter implements IHttpGateway {
   constructor(private readonly api: AxiosInstance) {}
@@ -28,6 +29,18 @@ export class HttpGatewayAdapter implements IHttpGateway {
         );
       });
     return account;
+  }
+
+  async login(input: LoginInput): Promise<LoginOutput> {
+    const output = await this.api
+      .post<LoginOutput>(`/login`, input)
+      .then((res) => res.data)
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
+      });
+    return output;
   }
 
   async getAccount(accountNumber: number): Promise<Account> {

@@ -2,6 +2,7 @@ import { Account } from "../domain/Account";
 import { Credit } from "../domain/Credit";
 import { Customer } from "../domain/Customer";
 import { Debit } from "../domain/Debit";
+import { LoginInput, LoginOutput } from "../domain/Login";
 
 export type PostTransferInput = {
   value: number;
@@ -67,6 +68,7 @@ type TransactionType = "credit" | "debit" | "transfer";
 
 export interface IHttpGateway {
   postAccount(input: Customer): Promise<PostAccountOutput>;
+  login(input: LoginInput): Promise<LoginOutput>;
   getAccount(accountNumber: number): Promise<Account>;
   getAccounts(): Promise<AccountOutput[]>;
   putAccount(accountNumber: number, input: Customer): Promise<void>;

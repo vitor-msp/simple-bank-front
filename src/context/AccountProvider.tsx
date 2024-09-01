@@ -1,10 +1,15 @@
 import { PropsWithChildren, createContext, useState } from "react";
 import { Account } from "../core/domain/Account";
-import { getAccountUsecase, updateAccountUsecase } from "../factory";
+import {
+  getAccountUsecase,
+  loginUsecase,
+  updateAccountUsecase,
+} from "../factory";
 import { Customer } from "../core/domain/Customer";
+import { LoginInput } from "../core/domain/Login";
 
 export type AccountContextType = {
-  login: (accountNumber: number) => Promise<boolean>;
+  login: (loginInput: LoginInput) => Promise<boolean>;
   getAccount: () => Account | null;
   updateAccount: (accountNumber: number, input: Customer) => Promise<boolean>;
   isLoggedIn: boolean;
@@ -12,7 +17,7 @@ export type AccountContextType = {
 };
 
 const defaultAccountContext: AccountContextType = {
-  login: async (accountNumber: number) => false,
+  login: async (loginInput: LoginInput) => false,
   getAccount: () => null,
   updateAccount: async (accountNumber: number, input: Customer) => false,
   isLoggedIn: false,
@@ -27,14 +32,18 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [account, setAccount] = useState<Account | null>(null);
 
-  const login = async (accountNumber: number) => {
-    const account = await getAccountUsecase.execute(accountNumber);
-    if (account) {
-      setIsLoggedIn(true);
-      setAccount(account);
-      return true;
-    }
-    return false;
+  const login = async (loginInput: LoginInput) => {
+    if (!loginInput.accountNumber) return false;
+
+    const logged = await loginUsecase.execute(loginInput);
+    if (!logged) return false;
+
+    const account = await getAccountUsecase.execute(loginInput.accountNumber);
+    if (!account) return false;
+
+    setIsLoggedIn(true);
+    setAccount(account);
+    return true;
   };
 
   const getAccount = (): Account | null => {
