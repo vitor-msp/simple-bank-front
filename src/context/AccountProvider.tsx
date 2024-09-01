@@ -8,7 +8,8 @@ import {
 } from "../factory";
 import { Customer } from "../core/domain/Customer";
 import { LoginInput } from "../core/domain/Login";
-import { TokenUtil } from "../utils/TokenUtil";
+import { TokenUtil } from "../core/utils/TokenUtil";
+import { Role } from "../core/domain/Role";
 
 export type AccountContextType = {
   init: () => Promise<boolean>;
@@ -16,6 +17,7 @@ export type AccountContextType = {
   getAccount: () => Account | null;
   updateAccount: (accountNumber: number, input: Customer) => Promise<boolean>;
   isLoggedIn: boolean;
+  role: Role | null;
   logout: () => void;
 };
 
@@ -25,6 +27,7 @@ const defaultAccountContext: AccountContextType = {
   getAccount: () => null,
   updateAccount: async (accountNumber: number, input: Customer) => false,
   isLoggedIn: false,
+  role: null,
   logout: () => {},
 };
 
@@ -35,6 +38,7 @@ export const AccountContext = createContext<AccountContextType>(
 export const AccountProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [account, setAccount] = useState<Account | null>(null);
+  const [role, setRole] = useState<Role | null>(null);
 
   const init = async (): Promise<boolean> => {
     const accessToken = localStorage.getItem("accessToken");
@@ -46,26 +50,35 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
       return false;
     }
 
-    const accountNumber = TokenUtil.getAccountNumber(accessToken);
-    const account = await getAccountUsecase.execute(accountNumber);
-    if (!account) return false;
+    const role = TokenUtil.getRole(accessToken);
+    if (!role) return false;
+
+    if (role === Role.Customer) {
+      const accountNumber = TokenUtil.getAccountNumber(accessToken);
+      const account = await getAccountUsecase.execute(accountNumber);
+      if (!account) return false;
+      setAccount(account);
+    }
 
     setIsLoggedIn(true);
-    setAccount(account);
+    setRole(role);
     return true;
   };
 
   const login = async (loginInput: LoginInput) => {
     if (!loginInput.accountNumber) return false;
 
-    const logged = await loginUsecase.execute(loginInput);
-    if (!logged) return false;
+    const role = await loginUsecase.execute(loginInput);
+    if (!role) return false;
 
-    const account = await getAccountUsecase.execute(loginInput.accountNumber);
-    if (!account) return false;
+    if (role === Role.Customer) {
+      const account = await getAccountUsecase.execute(loginInput.accountNumber);
+      if (!account) return false;
+      setAccount(account);
+    }
 
     setIsLoggedIn(true);
-    setAccount(account);
+    setRole(role);
     return true;
   };
 
@@ -97,6 +110,7 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
         getAccount,
         updateAccount,
         isLoggedIn,
+        role,
         logout,
       }}
     >

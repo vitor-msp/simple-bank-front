@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { AccountContext } from "../context/AccountProvider";
+import { Role } from "../core/domain/Role";
 
 export type LayoutProps = {
   child: any;
@@ -19,11 +20,15 @@ export const Layout: React.FC<LayoutProps> = ({ child }) => {
   }, []);
 
   return (
-    <div>
-      <Navbar />
-      <main>{refreshCounter === 0 && child}</main>
-      <main>{refreshCounter === 1 && child}</main>
-      <Footer />
-    </div>
+    <>
+      {(accountContext.role === Role.Admin && <p>admin</p>) || (
+        <div>
+          <Navbar />
+          <main>{refreshCounter === 0 && child}</main>
+          <main>{refreshCounter === 1 && child}</main>
+          <Footer />
+        </div>
+      )}
+    </>
   );
 };
