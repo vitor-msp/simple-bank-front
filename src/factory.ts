@@ -12,6 +12,7 @@ import { TransferUsecase } from "./core/use-cases/transactions/TransferUsecase";
 import { HttpGatewayAdapter } from "./infra/HttpGatewayAdapter";
 import { LoginUsecase } from "./core/use-cases/sessions/LoginUsecase";
 import { LogoutUsecase } from "./core/use-cases/sessions/LogoutUsecase";
+import { CreateAdminAccountUsecase } from "./core/use-cases/accounts/CreateAdminAccountUsecase";
 
 const API_URL = process.env.REACT_APP_API_URL;
 if (!API_URL || API_URL.localeCompare("") === 0)
@@ -34,3 +35,5 @@ export const debitUsecase = new DebitUsecase(httpAdapter);
 export const transferUsecase = new TransferUsecase(httpAdapter);
 export const getBalanceUsecase = new GetBalanceUsecase(httpAdapter);
 export const getTransactionsUsecase = new GetTransactionsUsecase(httpAdapter);
+
+export const createAdminAccountUsecase = new CreateAdminAccountUsecase(httpAdapter);

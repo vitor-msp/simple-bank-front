@@ -18,7 +18,7 @@ export type AccountContextType = {
   updateAccount: (accountNumber: number, input: Customer) => Promise<boolean>;
   isLoggedIn: boolean;
   role: Role | null;
-  logout: () => void;
+  logout: () => Promise<void>;
 };
 
 const defaultAccountContext: AccountContextType = {
@@ -28,7 +28,7 @@ const defaultAccountContext: AccountContextType = {
   updateAccount: async (accountNumber: number, input: Customer) => false,
   isLoggedIn: false,
   role: null,
-  logout: () => {},
+  logout: async () => {},
 };
 
 export const AccountContext = createContext<AccountContextType>(
@@ -99,6 +99,14 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
   const logout = async () => {
     if (account?.accountNumber)
       await logoutUsecase.execute(account.accountNumber);
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    setAccount(null);
+    setRole(null);
+    setIsLoggedIn(false);
+
     window.location.replace("/");
   };
 

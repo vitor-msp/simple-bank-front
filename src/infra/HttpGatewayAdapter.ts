@@ -236,4 +236,20 @@ export class HttpGatewayAdapter implements IHttpGateway {
       ),
     };
   }
+
+  async postAdminAccount(
+    input: Customer,
+    headers: Headers
+  ): Promise<PostAccountOutput> {
+    const account = await this.api
+      .post<PostAccountOutput>(`/accounts/admin`, input, { headers })
+      .then((res) => res.data)
+      .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
+      });
+    return account;
+  }
 }

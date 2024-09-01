@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { AccountContext } from "../context/AccountProvider";
 import { Role } from "../core/domain/Role";
+import { AdminPage } from "./AdminPage";
 
 export type LayoutProps = {
   child: any;
@@ -21,7 +22,7 @@ export const Layout: React.FC<LayoutProps> = ({ child }) => {
 
   return (
     <>
-      {(accountContext.role === Role.Admin && <p>admin</p>) || (
+      {(accountContext.role === Role.Admin && <AdminPage />) || (
         <div>
           <Navbar />
           <main>{refreshCounter === 0 && child}</main>

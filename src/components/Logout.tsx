@@ -4,8 +4,8 @@ import { AccountContext } from "../context/AccountProvider";
 export const Logout = () => {
   const accountContext = useContext(AccountContext);
 
-  const logout = () => {
-    accountContext.logout();
+  const logout = async () => {
+    await accountContext.logout();
   };
 
   return (

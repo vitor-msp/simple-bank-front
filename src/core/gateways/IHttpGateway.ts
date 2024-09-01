@@ -105,4 +105,8 @@ export interface IHttpGateway {
     accountNumber: number,
     headers: Headers
   ): Promise<GetTransactionsOutput>;
+  postAdminAccount(
+    input: Customer,
+    headers: Headers
+  ): Promise<PostAccountOutput>;
 }
