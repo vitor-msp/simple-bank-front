@@ -4,6 +4,7 @@ import { Customer } from "../domain/Customer";
 import { Debit } from "../domain/Debit";
 import { Headers } from "../domain/Headers";
 import { LoginInput, LoginOutput } from "../domain/Login";
+import { LogoutInput } from "../domain/Logout";
 
 export type PostTransferInput = {
   value: number;
@@ -68,8 +69,9 @@ export type TransactionOutputApi = {
 type TransactionType = "Credit" | "Debit" | "Transfer";
 
 export interface IHttpGateway {
-  postAccount(input: Customer): Promise<PostAccountOutput>;
   login(input: LoginInput): Promise<LoginOutput>;
+  logout(input: LogoutInput): Promise<void>;
+  postAccount(input: Customer): Promise<PostAccountOutput>;
   getAccount(accountNumber: number, headers: Headers): Promise<Account>;
   getAccounts(): Promise<AccountOutput[]>;
   putAccount(

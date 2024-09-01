@@ -16,6 +16,7 @@ import {
 } from "../core/gateways/IHttpGateway";
 import { LoginInput, LoginOutput } from "../core/domain/Login";
 import { Headers } from "../core/domain/Headers";
+import { LogoutInput } from "../core/domain/Logout";
 
 export class HttpGatewayAdapter implements IHttpGateway {
   constructor(private readonly api: AxiosInstance) {}
@@ -30,6 +31,14 @@ export class HttpGatewayAdapter implements IHttpGateway {
         );
       });
     return account;
+  }
+
+  async logout(input: LogoutInput): Promise<void> {
+    await this.api.post(`/logout`, input).catch((error) => {
+      throw new Error(
+        error?.response?.data?.apiErrorMessage ?? "Unknown error."
+      );
+    });
   }
 
   async login(input: LoginInput): Promise<LoginOutput> {

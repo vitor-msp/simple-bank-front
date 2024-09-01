@@ -3,6 +3,7 @@ import { Account } from "../core/domain/Account";
 import {
   getAccountUsecase,
   loginUsecase,
+  logoutUsecase,
   updateAccountUsecase,
 } from "../factory";
 import { Customer } from "../core/domain/Customer";
@@ -60,7 +61,9 @@ export const AccountProvider = ({ children }: PropsWithChildren) => {
     return success;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    if (account?.accountNumber)
+      await logoutUsecase.execute(account.accountNumber);
     window.location.replace("/");
   };
 

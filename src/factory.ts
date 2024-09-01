@@ -10,7 +10,8 @@ import { GetBalanceUsecase } from "./core/use-cases/transactions/GetBalanceUseca
 import { GetTransactionsUsecase } from "./core/use-cases/transactions/GetTransactionsUsecase";
 import { TransferUsecase } from "./core/use-cases/transactions/TransferUsecase";
 import { HttpGatewayAdapter } from "./infra/HttpGatewayAdapter";
-import { LoginUsecase } from "./core/use-cases/accounts/LoginUsecase";
+import { LoginUsecase } from "./core/use-cases/sessions/LoginUsecase";
+import { LogoutUsecase } from "./core/use-cases/sessions/LogoutUsecase";
 
 const API_URL = process.env.REACT_APP_API_URL;
 if (!API_URL || API_URL.localeCompare("") === 0)
@@ -18,6 +19,7 @@ if (!API_URL || API_URL.localeCompare("") === 0)
 const httpAdapter = new HttpGatewayAdapter(axios.create({ baseURL: API_URL }));
 
 export const loginUsecase = new LoginUsecase(httpAdapter);
+export const logoutUsecase = new LogoutUsecase(httpAdapter);
 
 export const createAccountUsecase = new CreateAccountUsecase(httpAdapter);
 export const getAccountUsecase = new GetAccountUsecase(httpAdapter);
