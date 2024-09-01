@@ -17,29 +17,14 @@ import {
 import { LoginInput, LoginOutput } from "../core/domain/Login";
 import { Headers } from "../core/domain/Headers";
 import { LogoutInput } from "../core/domain/Logout";
+import {
+  RefreshTokenInput,
+  RefreshTokenOutput,
+} from "../core/domain/RefreshToken";
+import { UnauthorizedError } from "../core/UnauthorizedError";
 
 export class HttpGatewayAdapter implements IHttpGateway {
   constructor(private readonly api: AxiosInstance) {}
-
-  async postAccount(input: Customer): Promise<PostAccountOutput> {
-    const account = await this.api
-      .post<PostAccountOutput>(`/accounts`, input)
-      .then((res) => res.data)
-      .catch((error) => {
-        throw new Error(
-          error?.response?.data?.apiErrorMessage ?? "Unknown error."
-        );
-      });
-    return account;
-  }
-
-  async logout(input: LogoutInput): Promise<void> {
-    await this.api.post(`/logout`, input).catch((error) => {
-      throw new Error(
-        error?.response?.data?.apiErrorMessage ?? "Unknown error."
-      );
-    });
-  }
 
   async login(input: LoginInput): Promise<LoginOutput> {
     const output = await this.api
@@ -53,9 +38,29 @@ export class HttpGatewayAdapter implements IHttpGateway {
     return output;
   }
 
-  async getAccount(accountNumber: number, headers: Headers): Promise<Account> {
+  async logout(input: LogoutInput): Promise<void> {
+    await this.api.post(`/logout`, input).catch((error) => {
+      throw new Error(
+        error?.response?.data?.apiErrorMessage ?? "Unknown error."
+      );
+    });
+  }
+
+  async refreshToken(input: RefreshTokenInput): Promise<RefreshTokenOutput> {
+    const output = await this.api
+      .post<RefreshTokenOutput>(`/refresh-token`, input)
+      .then((res) => res.data)
+      .catch((error) => {
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
+      });
+    return output;
+  }
+
+  async postAccount(input: Customer): Promise<PostAccountOutput> {
     const account = await this.api
-      .get<Account>(`/accounts/${accountNumber}`, { headers })
+      .post<PostAccountOutput>(`/accounts`, input)
       .then((res) => res.data)
       .catch((error) => {
         throw new Error(
@@ -65,11 +70,25 @@ export class HttpGatewayAdapter implements IHttpGateway {
     return account;
   }
 
-  async getAccounts(): Promise<AccountOutput[]> {
-    const response = await this.api
-      .get<GetAccountsOutput>(`/accounts`)
+  async getAccount(accountNumber: number, headers: Headers): Promise<Account> {
+    const account = await this.api
+      .get<Account>(`/accounts/${accountNumber}`, { headers })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
+        throw new Error(
+          error?.response?.data?.apiErrorMessage ?? "Unknown error."
+        );
+      });
+    return account;
+  }
+
+  async getAccounts(headers: Headers): Promise<AccountOutput[]> {
+    const response = await this.api
+      .get<GetAccountsOutput>(`/accounts`, { headers })
+      .then((res) => res.data)
+      .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -86,6 +105,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       .put(`/accounts/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -97,6 +117,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       .delete(`/accounts/${accountNumber}`, { headers })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -112,6 +133,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       .post(`/transactions/credit/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -127,6 +149,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       .post(`/transactions/debit/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -142,6 +165,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       .post(`/transactions/transfer/${accountNumber}`, input, { headers })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -158,6 +182,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );
@@ -175,6 +200,7 @@ export class HttpGatewayAdapter implements IHttpGateway {
       })
       .then((res) => res.data)
       .catch((error) => {
+        if (error.response?.status === 401) throw new UnauthorizedError();
         throw new Error(
           error?.response?.data?.apiErrorMessage ?? "Unknown error."
         );

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { Customer } from "../core/domain/Customer";
 import { AccountContext } from "../context/AccountProvider";
 import { Account } from "../core/domain/Account";
 import { inactivateAccountUsecase } from "../factory";

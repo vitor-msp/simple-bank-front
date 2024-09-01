@@ -1,14 +1,16 @@
-import { AccountOutput, IHttpGateway } from "../../gateways/IHttpGateway";
+import { AccountOutput } from "../../gateways/IHttpGateway";
+import { BaseUsecase } from "../BaseUsecase";
+import { Command } from "../Command";
 
-export class GetAccountsUsecase {
-  constructor(private readonly http: IHttpGateway) {}
-
+class GetAccountsCommand extends Command {
   async execute(): Promise<AccountOutput[]> {
-    try {
-      return await this.http.getAccounts();
-    } catch (error) {
-      alert(error);
-      return [];
-    }
+    return await this.http!.getAccounts(this.headers!);
+  }
+}
+
+export class GetAccountsUsecase extends BaseUsecase {
+  async execute(accountNumber: number): Promise<AccountOutput[]> {
+    const command = new GetAccountsCommand(accountNumber);
+    return await this.executeCommand(accountNumber, command);
   }
 }
