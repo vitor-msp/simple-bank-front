@@ -1,0 +1,36 @@
+name: Simple Bank App deploy AWS S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - name: restore node packages
+        run: npm install
+
+      - name: build project
+        env:
+          REACT_APP_API_URL: ${{ vars.API_URL }}
+          CI: false
+        run: npm run build
+
+      - name: deploy to aws s3
+        env:
+          S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 sync build/ s3://$S3_BUCKET_NAME
