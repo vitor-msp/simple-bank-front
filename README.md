@@ -4,7 +4,8 @@
 
 ![website demo](assets/demo.gif)
 
-The API be available [in this repository](https://github.com/vitor-msp/simple-bank-api)
+- The **API** be available [in this repository](https://github.com/vitor-msp/simple-bank-api)
+- The **cloud infra** be available [in this repository](https://github.com/vitor-msp/simple-bank-infra)
 
 ## Execution
 
